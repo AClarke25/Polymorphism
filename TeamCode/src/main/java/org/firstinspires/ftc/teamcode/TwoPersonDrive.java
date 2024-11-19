@@ -10,7 +10,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 // annotation used to differentiate TeleOp and Auto modes
 // (i guess it just mainly changes the tab it appears in on the controller??)
 @TeleOp
-public class ZahaanCharlieOpMode extends LinearOpMode {
+public class TwoPersonDrive extends LinearOpMode {
     // ** add private variables/robo parts later
     // placeholder robo parts for now
 
