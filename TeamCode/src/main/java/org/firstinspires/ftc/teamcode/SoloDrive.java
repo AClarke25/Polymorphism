@@ -50,9 +50,6 @@ public class SoloDrive extends LinearOpMode {
         double strafePower = 0;
         double turnPower = 0;
 
-        roboController.FRW.setDirection(DcMotorSimple.Direction.REVERSE);
-        roboController.BRW.setDirection(DcMotorSimple.Direction.REVERSE);
-
         // moves the robot's (wheel) motors forward and back using the game pad 1 left joystick
         drivePower = -gamepad.left_stick_y;
 
