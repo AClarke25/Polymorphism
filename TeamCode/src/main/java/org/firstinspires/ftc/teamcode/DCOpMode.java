@@ -1,3 +1,4 @@
+/*
 package org.firstinspires.ftc.teamcode;
 
 //test test
@@ -13,38 +14,11 @@ import com.qualcomm.robotcore.hardware.Servo;
 // (i guess it just mainly changes the tab it appears in on the controller??)
 @TeleOp
 public class DCOpMode extends LinearOpMode {
-    // ** add private variables/robo parts later
-    // placeholder robo parts for now
-
-    // wheel parts
-    // (F = Front, B = Back, L = Left, R = Right, W = Wheel)
-    private DcMotor FLW;
-    private DcMotor FRW;
-    private DcMotor BLW;
-    private DcMotor BRW;
-
-    // arm parts
-    private DcMotor VLS;
-    private DcMotor IntakeArm;
-    private Servo OutClaw;
-    private Servo Wrist;
+    private RoboController roboController;
 
     @Override
     public void runOpMode() {
-        // ** set the robo parts to the corresponding "hardwareMap.get" values later
-        // placeholder robo parts for now
-
-        // wheel config
-        FLW = hardwareMap.get(DcMotor.class, "FLW");
-        FRW = hardwareMap.get(DcMotor.class, "FRW");
-        BLW = hardwareMap.get(DcMotor.class, "BLW");
-        BRW = hardwareMap.get(DcMotor.class, "BRW");
-
-        // arm config
-        VLS = hardwareMap.get(DcMotor.class,"VLS");
-        IntakeArm = hardwareMap.get(DcMotor.class,"IntakeArm");
-        OutClaw = hardwareMap.get(Servo.class,"OutClaw");
-        Wrist = hardwareMap.get(Servo.class,"Wrist");
+        roboController = new RoboController(this);
 
         telemetry.addData("Status", "Initialized");
         telemetry.update();
@@ -59,15 +33,15 @@ public class DCOpMode extends LinearOpMode {
             moveWheels(gamepad1);
             moveArm(gamepad2);
 
-            telemetry.addData("FLW Motor Power", FLW.getPower());
-            telemetry.addData("FRW Motor Power", FRW.getPower());
-            telemetry.addData("BLW Motor Power", BLW.getPower());
-            telemetry.addData("BRW Motor Power", BRW.getPower());
+            telemetry.addData("FLW Motor Power", roboController.FLW.getPower());
+            telemetry.addData("FRW Motor Power", roboController.FRW.getPower());
+            telemetry.addData("BLW Motor Power", roboController.BLW.getPower());
+            telemetry.addData("BRW Motor Power", roboController.BRW.getPower());
 
-            telemetry.addData("Outtake Arm Motor Power", VLS.getPower());
-            telemetry.addData("Intake Arm Motor Power", IntakeArm.getPower());
-            telemetry.addData("Outtake Claw Servo Position", OutClaw.getPosition());
-            telemetry.addData("Intake Claw Servo Position", Wrist.getPosition());
+            telemetry.addData("Outtake Arm Motor Power", roboController.VLS.getPower());
+            telemetry.addData("Intake Arm Motor Power", roboController.IntakeArm.getPower());
+            telemetry.addData("Outtake Claw Servo Position", roboController.OutClaw.getPosition());
+            telemetry.addData("Intake Claw Servo Position", roboController.Wrist.getPosition());
 
             telemetry.addData("Status", "Running");
             telemetry.update();
@@ -96,41 +70,41 @@ public class DCOpMode extends LinearOpMode {
             if(turnPower != 0){
                 // ** recheck this
                 //Drive and Turn
-                FRW.setPower(drivePower);
-                FLW.setPower(turnPower);
-                BRW.setPower(drivePower);
-                BLW.setPower(turnPower);
+                roboController.FRW.setPower(drivePower);
+                roboController.FLW.setPower(turnPower);
+                roboController.BRW.setPower(drivePower);
+                roboController.BLW.setPower(turnPower);
             } else if(strafePower  != 0){
                 // ** recheck this
                 //Drive and Strafe
-                FLW.setPower(drivePower);
-                FRW.setPower(-strafePower);
-                BLW.setPower(-strafePower);
-                BRW.setPower(drivePower);
+                roboController.FLW.setPower(drivePower);
+                roboController.FRW.setPower(-strafePower);
+                roboController.BLW.setPower(-strafePower);
+                roboController.BRW.setPower(drivePower);
             } else {
                 // just driving
-                FRW.setPower(drivePower);
-                FLW.setPower(drivePower);
-                BRW.setPower(drivePower);
-                BLW.setPower(drivePower);
+                roboController.FRW.setPower(drivePower);
+                roboController.FLW.setPower(drivePower);
+                roboController.BRW.setPower(drivePower);
+                roboController.BLW.setPower(drivePower);
             }
         } else if(turnPower != 0){
             // just turning
-            FLW.setPower(turnPower);
-            FRW.setPower(-turnPower);
-            BLW.setPower(turnPower);
-            BRW.setPower(-turnPower);
+            roboController.FLW.setPower(turnPower);
+            roboController.FRW.setPower(-turnPower);
+            roboController.BLW.setPower(turnPower);
+            roboController.BRW.setPower(-turnPower);
         } else if(strafePower != 0){
             // just strafing
-            FLW.setPower(strafePower);
-            FRW.setPower(-strafePower);
-            BLW.setPower(-strafePower);
-            BRW.setPower(strafePower);
+            roboController.FLW.setPower(strafePower);
+            roboController.FRW.setPower(-strafePower);
+            roboController.BLW.setPower(-strafePower);
+            roboController.BRW.setPower(strafePower);
         } else {
-            FRW.setPower(0);
-            FLW.setPower(0);
-            BRW.setPower(0);
-            BLW.setPower(0);
+            roboController.FRW.setPower(0);
+            roboController.FLW.setPower(0);
+            roboController.BRW.setPower(0);
+            roboController.BLW.setPower(0);
         }
 
 
@@ -169,7 +143,7 @@ public class DCOpMode extends LinearOpMode {
             BLW.setPower(0);
             BRW.setPower(0);
         }
-        */
+
     }
 
     public void moveArm(Gamepad armpad){
@@ -223,3 +197,4 @@ public class DCOpMode extends LinearOpMode {
         }
     }
 }
+*/
