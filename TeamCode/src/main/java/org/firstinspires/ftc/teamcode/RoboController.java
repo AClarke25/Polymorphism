@@ -79,7 +79,7 @@ public class RoboController {
         return (int) countsToDrive;
     }
 
-    public void moveOnXAxis(int inches, int speed) {
+    public void moveOnXAxis(int inches, double speed) {
         int ticks = inchesToCounts(inches);
 
         opMode.telemetry.addData("x", "");
@@ -119,7 +119,7 @@ public class RoboController {
         opMode.sleep(250);
     }
 
-    public void moveOnYAxis(int inches, int speed){
+    public void moveOnYAxis(int inches, double speed){
         int ticks = inchesToCounts(inches);
 
         opMode.telemetry.addData("y", "");
@@ -160,7 +160,7 @@ public class RoboController {
         opMode.sleep(250);
     }
 
-    public void Spin(int inches, int speed) {
+    public void Spin(int inches, double speed) {
         int ticks = inchesToCounts(inches);
 
         opMode.telemetry.addData("spin", "");

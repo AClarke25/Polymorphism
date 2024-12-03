@@ -23,16 +23,16 @@ public class AutoScoreAndPark extends LinearOpMode {
 
             // autonomous scoring towards the buckets
             // move forward
-            roboController.moveOnYAxis(24, 1);
-            
+            roboController.moveOnYAxis(24, 0.5);
+
             // rotate left 135 degrees
-            roboController.Spin(-27,1);
+            roboController.Spin(-27,0.5);
 
             // move forward
-            roboController.moveOnYAxis(15, 1);
+            roboController.moveOnYAxis(15, 0.5);
 
             // extend arm up
-            roboController.VLS.setPower(1);
+            roboController.VLS.setPower(0.5);
 
             sleep(2000);
 
@@ -51,23 +51,23 @@ public class AutoScoreAndPark extends LinearOpMode {
             // adjust in opposite way if needed
 
             // retract arm
-            roboController.VLS.setPower(-1);
+            roboController.VLS.setPower(-0.5);
 
             sleep(2000);
 
             roboController.VLS.setPower(0);
 
             // move back
-            roboController.moveOnYAxis(-15, 1);
+            roboController.moveOnYAxis(-15, 0.5);
 
             // rotate right 45 degrees
-            roboController.Spin(9,1);
+            roboController.Spin(9,0.5);
 
             // move back
-            roboController.moveOnYAxis(-96,1);
+            roboController.moveOnYAxis(-96,0.5);
 
             // move left and park in observation zone
-            roboController.moveOnXAxis(-24,1);
+            roboController.moveOnXAxis(-24,0.5);
 
 
             // test
