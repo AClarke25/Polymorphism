@@ -1,3 +1,4 @@
+/*
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
@@ -155,6 +156,7 @@ public class TwoPersonDrive extends LinearOpMode {
             BRW.setPower(0);
         }
         */
+/*
     }
 
     public void moveArm(Gamepad armpad){
@@ -305,5 +307,7 @@ public class TwoPersonDrive extends LinearOpMode {
 //        if(armpad.triangle) {
 //            // trigger hanging maneuver
 //        }
+/*
     }
 }
+*/

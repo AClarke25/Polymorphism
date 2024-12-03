@@ -1,10 +1,15 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.hardware.CRServo;
+import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorEx;
+import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.hardware.DistanceSensor;
+import java.lang.Math;
 
 public class RoboController {
     private LinearOpMode opMode;
@@ -65,5 +70,134 @@ public class RoboController {
         FRW.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         BLW.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         BRW.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+    }
+
+    public static int inchesToCounts(double inchesToDrive) {
+        double circumference = Constants.WHEEL_DIAMETER_IN_INCHES * Math.PI;
+        double rotations = inchesToDrive / circumference;
+        double countsToDrive = rotations * Constants.WHEEL_MOTOR_COUNTS_PER_ROTATION;
+        return (int) countsToDrive;
+    }
+
+    public void moveOnXAxis(int inches, int speed) {
+        int ticks = inchesToCounts(inches);
+
+        opMode.telemetry.addData("x", "");
+        opMode.telemetry.update();
+
+        // Reset encoders
+        FLW.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        FRW.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        BLW.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        BRW.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+        FLW.setPower(speed);
+        FRW.setPower(-speed);
+        BLW.setPower(-speed);
+        BRW.setPower(speed);
+
+        FLW.setTargetPosition(ticks);
+        BLW.setTargetPosition(ticks);
+        FRW.setTargetPosition(ticks);
+        BRW.setTargetPosition(ticks);
+
+        FLW.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        FRW.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        BLW.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        BRW.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+
+        while (opMode.opModeIsActive() && FLW.isBusy()) {
+            // Loop until the motor reaches its target position.
+            opMode.telemetry.addData("Front Left Encoder", FLW.getCurrentPosition());
+            opMode.telemetry.addData("Front Right Encoder", FRW.getCurrentPosition());
+            opMode.telemetry.addData("Rear Left Encoder", BLW.getCurrentPosition());
+            opMode.telemetry.addData("Rear Right Encoder", BRW.getCurrentPosition());
+            opMode.telemetry.update();
+        }
+
+        opMode.sleep(250);
+    }
+
+    public void moveOnYAxis(int inches, int speed){
+        int ticks = inchesToCounts(inches);
+
+        opMode.telemetry.addData("y", "");
+        opMode.telemetry.update();
+
+        // Reset encoders
+        FLW.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        FRW.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        BLW.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        BRW.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+        FLW.setPower(speed);
+        FRW.setPower(speed);
+        BLW.setPower(speed);
+        BRW.setPower(speed);
+
+        // Set position
+        FLW.setTargetPosition(ticks);
+        FRW.setTargetPosition(ticks);
+        BLW.setTargetPosition(ticks);
+        BRW.setTargetPosition(ticks);
+
+        FLW.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        FRW.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        BLW.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        BRW.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+
+        while (opMode.opModeIsActive() && FLW.isBusy()) {
+            // Loop until the motor reaches its target position.
+            opMode.telemetry.addData("Front Left Encoder", FLW.getCurrentPosition());
+            opMode.telemetry.addData("Front Right Encoder", FRW.getCurrentPosition());
+            opMode.telemetry.addData("Rear Left Encoder", BLW.getCurrentPosition());
+            opMode.telemetry.addData("Rear Right Encoder", BRW.getCurrentPosition());
+            opMode.telemetry.update();
+        }
+
+        opMode.sleep(250);
+    }
+
+    public void Spin(int inches, int speed) {
+        int ticks = inchesToCounts(inches);
+
+        opMode.telemetry.addData("spin", "");
+        opMode.telemetry.update();
+
+        // Reset encoders
+        FLW.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        FRW.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        BLW.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        BRW.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+        FLW.setPower(speed);
+        BLW.setPower(speed);
+        FRW.setPower(-speed);
+        BRW.setPower(-speed);
+
+        // Set position
+        FLW.setTargetPosition(ticks);
+        BLW.setTargetPosition(ticks);
+        FRW.setTargetPosition(ticks);
+        BRW.setTargetPosition(ticks);
+
+        FLW.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        FRW.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        BLW.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        BRW.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+
+        while (opMode.opModeIsActive() && FLW.isBusy()) {
+            // Loop until the motor reaches its target position.
+            opMode.telemetry.addData("Front Left Encoder", FLW.getCurrentPosition());
+            opMode.telemetry.addData("Front Right Encoder", FRW.getCurrentPosition());
+            opMode.telemetry.addData("Rear Left Encoder", BLW.getCurrentPosition());
+            opMode.telemetry.addData("Rear Right Encoder", BRW.getCurrentPosition());
+            opMode.telemetry.update();
+        }
+
+        opMode.sleep(250);
     }
 }

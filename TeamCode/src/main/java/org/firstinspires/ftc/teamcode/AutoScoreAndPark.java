@@ -1,62 +1,87 @@
-/*
 package org.firstinspires.ftc.teamcode;
 
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
-import com.qualcomm.robotcore.hardware.Servo;
-import com.qualcomm.robotcore.hardware.CRServo;
-import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.Gamepad;
-import com.qualcomm.robotcore.hardware.HardwareMap;
-import com.qualcomm.robotcore.hardware.DistanceSensor;
-import java.lang.Math;
+
+@Autonomous(name = "Auto Score and Park", group = "Concept")
+
+// will score the preset block and park in observation zone
+public class AutoScoreAndPark extends LinearOpMode {
+
+    @Override
+    public void runOpMode() {
+        RoboController roboController = new RoboController(this);
+
+        /** Wait for the game to begin */
+        telemetry.addData(">", "Press Play to start op mode");
+        telemetry.update();
+        waitForStart();
+
+        if (opModeIsActive()) {
+            // 18 inches = about 90 degree turn
+            // Diagonal distance = about 33.94113
+
+            // autonomous scoring towards the buckets
+            // move forward
+            roboController.moveOnYAxis(24, 1);
+            
+            // rotate left 135 degrees
+            roboController.Spin(-27,1);
+
+            // move forward
+            roboController.moveOnYAxis(15, 1);
+
+            // extend arm up
+            roboController.VLS.setPower(1);
+
+            sleep(2000);
+
+            roboController.VLS.setPower(0);
+
+            // maybe move forward a bit to adjust
+
+            // tilt bucket down
+            roboController.outClaw.setPosition(1);
+
+            sleep(1000);
+
+            // tilt bucket up
+            roboController.outClaw.setPosition(0);
+
+            // adjust in opposite way if needed
+
+            // retract arm
+            roboController.VLS.setPower(-1);
+
+            sleep(2000);
+
+            roboController.VLS.setPower(0);
+
+            // move back
+            roboController.moveOnYAxis(-15, 1);
+
+            // rotate right 45 degrees
+            roboController.Spin(9,1);
+
+            // move back
+            roboController.moveOnYAxis(-96,1);
+
+            // move left and park in observation zone
+            roboController.moveOnXAxis(-24,1);
 
 
-public class AutoScoreAndPark {
-    public void moveOnXAxis(int ticks) {
-        opMode.telemetry.addData("x", "");
-        opMode.telemetry.update();
-        DcMotor frontLeft = FLW,
-                frontRight = FRW,
-                rearLeft = BLW,
-                rearRight = BRW;
+            // test
+            /*
+            roboController.moveOnYAxis(24, 1);
 
-        // Reset encoders
-        frontLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        frontRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        rearLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        rearRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+            sleep(2000);
 
-        frontLeft.setTargetPosition(ticks);
-        rearLeft.setTargetPosition(-ticks);
-        frontRight.setTargetPosition(-ticks);
-        rearRight.setTargetPosition(ticks);
+            roboController.moveOnYAxis(24, 1);
 
+            sleep(2000);
 
-
-
-
-        frontLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        frontRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        rearLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        rearRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-
-        frontLeft.setPower(1);
-        frontRight.setPower(-1);
-        rearLeft.setPower(-1);
-        rearRight.setPower(1);
-
-
-        while (opMode.opModeIsActive() && frontLeft.isBusy()) {
-            // Loop until the motor reaches its target position.
-            opMode.telemetry.addData("Front Left Encoder", frontLeft.getCurrentPosition());
-            opMode.telemetry.addData("Front Right Encoder", frontRight.getCurrentPosition());
-            opMode.telemetry.addData("Rear Left Encoder", rearLeft.getCurrentPosition());
-            opMode.telemetry.addData("Rear Right Encoder", rearRight.getCurrentPosition());
-            opMode.telemetry.update();
+            roboController.moveOnXAxis(48, 1);
+             */
         }
-
-        opMode.sleep(250);
     }
 }
-*/
