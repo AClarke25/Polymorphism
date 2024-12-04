@@ -97,8 +97,8 @@ public class RoboController {
         BRW.setPower(speed);
 
         FLW.setTargetPosition(ticks);
-        BLW.setTargetPosition(ticks);
-        FRW.setTargetPosition(ticks);
+        FRW.setTargetPosition(-ticks);
+        BLW.setTargetPosition(-ticks);
         BRW.setTargetPosition(ticks);
 
         FLW.setMode(DcMotor.RunMode.RUN_TO_POSITION);
@@ -173,15 +173,15 @@ public class RoboController {
         BRW.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
         FLW.setPower(speed);
-        BLW.setPower(speed);
         FRW.setPower(-speed);
+        BLW.setPower(speed);
         BRW.setPower(-speed);
 
         // Set position
         FLW.setTargetPosition(ticks);
+        FRW.setTargetPosition(-ticks);
         BLW.setTargetPosition(ticks);
-        FRW.setTargetPosition(ticks);
-        BRW.setTargetPosition(ticks);
+        BRW.setTargetPosition(-ticks);
 
         FLW.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         FRW.setMode(DcMotor.RunMode.RUN_TO_POSITION);
