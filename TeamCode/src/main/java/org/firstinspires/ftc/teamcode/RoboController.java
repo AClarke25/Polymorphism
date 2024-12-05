@@ -19,7 +19,7 @@ public class RoboController {
     public DcMotor BLW;
     public DcMotor BRW;
 
-    // arm parts
+    // arm parts=
     public DcMotor VLS; // linear slide for outtake (Vertical Linear Slide)
     public DcMotor HLS; // linear slide for intake (Horizontal Linear Slide)
     public Servo outClaw; // bucket
