@@ -84,18 +84,18 @@ public class SoloDrive extends LinearOpMode {
 
         // triggers control extension of intake arm
         if(gamepad.right_trigger > 0.25) {
-            roboController.HLS.setPower(-gamepad.right_trigger);
+            roboController.HLS.setPower(gamepad.right_trigger);
         } else if(gamepad.left_trigger > 0.25){
-            roboController.HLS.setPower(gamepad.left_trigger);
+            roboController.HLS.setPower(-gamepad.left_trigger);
         } else{
             roboController.HLS.setPower(0);
         }
 
         // bumpers control extension of outtake arm
         if(gamepad.left_bumper){
-            roboController.VLS.setPower(1);
-        } else if(gamepad.right_bumper) {
             roboController.VLS.setPower(-1);
+        } else if(gamepad.right_bumper) {
+            roboController.VLS.setPower(1);
         } else {
             roboController.VLS.setPower(0);
         }
@@ -112,6 +112,8 @@ public class SoloDrive extends LinearOpMode {
                 // neutral position
                 roboController.shoulder.setPosition(0);
             } else if(roboController.inArmState == 1){
+
+                if(roboController.inClaw.current(0.8))
                 // pickup position
                 roboController.shoulder.setPosition(0.77);
             } else if(roboController.inArmState == 2){
