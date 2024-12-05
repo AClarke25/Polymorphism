@@ -3,14 +3,12 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
-import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorEx;
-import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.HardwareMap;
-import com.qualcomm.robotcore.hardware.DistanceSensor;
 import java.lang.Math;
 
+
+// overall class that stores robot configuration, presetting, and autonomous movements
 public class RoboController {
     private LinearOpMode opMode;
 
@@ -26,7 +24,7 @@ public class RoboController {
     public DcMotor HLS; // linear slide for intake
     public Servo outClaw; // bucket
     public Servo shoulder; // lower part closest to linear slide
-    public Servo elbow; // upper part
+    public Servo wrist; // upper part
     public Servo inClaw; //servo closest to white inclaw
 
     // button logic variables
@@ -34,6 +32,7 @@ public class RoboController {
     public boolean outClawLastState;
     public int inArmState;
     public boolean inArmLastState;
+    public boolean wristLastState;
 
     public RoboController(LinearOpMode opMode){
 
@@ -49,7 +48,7 @@ public class RoboController {
         // intake arm config
         HLS = hardwareMap.get(DcMotor.class,"HLS");
         shoulder = hardwareMap.get(Servo.class,"shoulder");
-        elbow = hardwareMap.get(Servo.class,"elbow");
+        wrist = hardwareMap.get(Servo.class,"wrist");
         inClaw = hardwareMap.get(Servo.class,"inClaw");
 
         //outtake arm config
@@ -58,6 +57,8 @@ public class RoboController {
 
         inClawLastState = false;
         outClawLastState = false;
+
+        wristLastState = false;
 
         inArmState = -1;
         inArmLastState = false;

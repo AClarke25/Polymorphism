@@ -2,10 +2,7 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Gamepad;
-import com.qualcomm.robotcore.hardware.Servo;
 
 @TeleOp
 public class SoloDrive extends LinearOpMode {
@@ -37,7 +34,7 @@ public class SoloDrive extends LinearOpMode {
             telemetry.addData("Outtake Claw Servo Position", roboController.outClaw.getPosition());
             telemetry.addData("Intake Claw Servo Position", roboController.inClaw.getPosition());
             telemetry.addData("Shoulder Servo Position", roboController.shoulder.getPosition());
-            telemetry.addData("Elbow Servo Position", roboController.elbow.getPosition());
+            telemetry.addData("Wrist Servo Position", roboController.wrist.getPosition());
 
             telemetry.addData("Status", "Running");
             telemetry.update();
@@ -45,7 +42,7 @@ public class SoloDrive extends LinearOpMode {
     }
 
     public void moveRobot(Gamepad gamepad){
-        // ** the functions below could be for any bot, depending on what controls you want to use to drive the bot **
+        // ** wheel movement **
         double drivePower = 0;
         double strafePower = 0;
         double turnPower = 0;
@@ -61,6 +58,7 @@ public class SoloDrive extends LinearOpMode {
 
         // drive, turn, and strafe logic
         // https://youtu.be/jRVUHapKx4o?si=1jVJ-ts7d2rkHCdq
+
         roboController.FLW.setPower(drivePower + turnPower + strafePower);
         roboController.FRW.setPower(drivePower - turnPower - strafePower);
         roboController.BLW.setPower(drivePower + turnPower - strafePower);
@@ -72,8 +70,7 @@ public class SoloDrive extends LinearOpMode {
         telemetry.addData("Turn Power", turnPower);
 
 
-        // ** the functions below are for the polymorphism bot **
-        // presets servo positions
+        // ** arm movement **
 
         // powers the robot's (arm) motors using the game pad 2 left joystick
         // (this will make the arm's motor power vary depending on how much you're using the joystick.
@@ -81,6 +78,8 @@ public class SoloDrive extends LinearOpMode {
         // value the joystick is giving)
         // linear slide(s) for outtake arm
         // (provides a threshold for deactivating motor power since joystick may not be at exactly 0)
+
+        // triggers control extension of intake arm
         if(gamepad.right_trigger > 0.25) {
             roboController.HLS.setPower(-gamepad.right_trigger);
         } else if(gamepad.left_trigger > 0.25){
@@ -89,14 +88,16 @@ public class SoloDrive extends LinearOpMode {
             roboController.HLS.setPower(0);
         }
 
-        if(gamepad.right_bumper){
+        // bumpers control extension of outtake arm
+        if(gamepad.left_bumper){
             roboController.VLS.setPower(1);
-        } else if(gamepad.left_bumper) {
+        } else if(gamepad.right_bumper) {
             roboController.VLS.setPower(-1);
         } else {
             roboController.VLS.setPower(0);
         }
 
+        // circle controls 3 intake arm positions
         if(gamepad.circle && !roboController.inArmLastState){
             if(roboController.inArmState == 2){
                 roboController.inArmState = 0;
@@ -106,16 +107,13 @@ public class SoloDrive extends LinearOpMode {
 
             if(roboController.inArmState == 0){
                 // neutral position
-                roboController.shoulder.setPosition(0.2);
-                roboController.elbow.setPosition(0.6);
+                roboController.shoulder.setPosition(0);
             } else if(roboController.inArmState == 1){
                 // dropoff position
                 roboController.shoulder.setPosition(0.32);
-                roboController.elbow.setPosition(0.2);
             } else if(roboController.inArmState == 2){
                 // pickup position
-                roboController.shoulder.setPosition(0.8);
-                roboController.elbow.setPosition(0.3);
+                roboController.shoulder.setPosition(0.77);
             }
         }
 
@@ -123,17 +121,19 @@ public class SoloDrive extends LinearOpMode {
 
         // 1 = open
         // 0 = closed
-        if(gamepad.triangle && !roboController.inClawLastState) {
+
+        // x controls opening and closing claw
+        if(gamepad.x && !roboController.inClawLastState) {
             if (roboController.inClaw.getPosition() <= 0.6) {
-                roboController.inClaw.setPosition(1);
+                roboController.inClaw.setPosition(0.8);
             }else{
-                roboController.inClaw.setPosition(0.2);
+                roboController.inClaw.setPosition(0.4);
             }
         }
-        roboController.inClawLastState = gamepad.triangle;
+        roboController.inClawLastState = gamepad.x;
 
-
-        if(gamepad.x && !roboController.outClawLastState){
+        // triangle controls the bucket position
+        if(gamepad.triangle && !roboController.outClawLastState){
             if (roboController.outClaw.getPosition() < 0.5) {
                 roboController.outClaw.setPosition(1);
             }else{
@@ -141,10 +141,17 @@ public class SoloDrive extends LinearOpMode {
             }
         }
 
-        roboController.outClawLastState = gamepad.x;
+        roboController.outClawLastState = gamepad.triangle;
 
-        if(gamepad.square){
-            roboController.outClaw.setPosition(0.5);
+        // square controls adjustment of wrist position
+        if(gamepad.square && !roboController.wristLastState){
+            if (roboController.wrist.getPosition() < 0.5) {
+                roboController.wrist.setPosition(1);
+            }else{
+                roboController.wrist.setPosition(0);
+            }
         }
+
+        roboController.wristLastState = gamepad.square;
     }
 }

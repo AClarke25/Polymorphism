@@ -70,8 +70,8 @@ public class AutoScoreAndPark extends LinearOpMode {
             roboController.moveOnXAxis(-24,0.5);
 
 
-            // test
             /*
+            // test
             roboController.moveOnYAxis(24, 1);
 
             sleep(2000);
@@ -81,7 +81,7 @@ public class AutoScoreAndPark extends LinearOpMode {
             sleep(2000);
 
             roboController.moveOnXAxis(48, 1);
-             */
+            */
         }
     }
 }
