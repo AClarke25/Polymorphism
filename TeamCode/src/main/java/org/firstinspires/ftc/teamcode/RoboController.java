@@ -20,8 +20,8 @@ public class RoboController {
     public DcMotor BRW;
 
     // arm parts
-    public DcMotor VLS; // linear slide for outtake
-    public DcMotor HLS; // linear slide for intake
+    public DcMotor VLS; // linear slide for outtake (Vertical Linear Slide)
+    public DcMotor HLS; // linear slide for intake (Horizontal Linear Slide)
     public Servo outClaw; // bucket
     public Servo shoulder; // lower part closest to linear slide
     public Servo wrist; // upper part
@@ -55,6 +55,7 @@ public class RoboController {
         VLS = hardwareMap.get(DcMotor.class,"VLS");
         outClaw = hardwareMap.get(Servo.class,"outClaw");
 
+        // logic booleans
         inClawLastState = false;
         outClawLastState = false;
 
@@ -73,6 +74,7 @@ public class RoboController {
         BRW.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
     }
 
+    // wheel/distance conversions
     public static int inchesToCounts(double inchesToDrive) {
         double circumference = Constants.WHEEL_DIAMETER_IN_INCHES * Math.PI;
         double rotations = inchesToDrive / circumference;
@@ -80,6 +82,7 @@ public class RoboController {
         return (int) countsToDrive;
     }
 
+    // auto movement for left and right
     public void moveOnXAxis(int inches, double speed) {
         int ticks = inchesToCounts(inches);
 
@@ -92,22 +95,26 @@ public class RoboController {
         BLW.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         BRW.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
+        // speed of wheel
         FLW.setPower(speed);
         FRW.setPower(-speed);
         BLW.setPower(-speed);
         BRW.setPower(speed);
 
+        // how far the wheel movement should bring the robot
         FLW.setTargetPosition(ticks);
         FRW.setTargetPosition(-ticks);
         BLW.setTargetPosition(-ticks);
         BRW.setTargetPosition(ticks);
 
+        // powers the wheels until it has reached the specified distance
         FLW.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         FRW.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         BLW.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         BRW.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
-
+        // print values while auto mode is running and wheels are moving (since the values pertain to the wheels
+        // and are only needed when the wheels are doing something)
         while (opMode.opModeIsActive() && FLW.isBusy()) {
             // Loop until the motor reaches its target position.
             opMode.telemetry.addData("Front Left Encoder", FLW.getCurrentPosition());
@@ -120,13 +127,13 @@ public class RoboController {
         opMode.sleep(250);
     }
 
+    // auto movement for forward and back
     public void moveOnYAxis(int inches, double speed){
         int ticks = inchesToCounts(inches);
 
         opMode.telemetry.addData("y", "");
         opMode.telemetry.update();
 
-        // Reset encoders
         FLW.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         FRW.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         BLW.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -137,7 +144,6 @@ public class RoboController {
         BLW.setPower(speed);
         BRW.setPower(speed);
 
-        // Set position
         FLW.setTargetPosition(ticks);
         FRW.setTargetPosition(ticks);
         BLW.setTargetPosition(ticks);
@@ -150,7 +156,6 @@ public class RoboController {
 
 
         while (opMode.opModeIsActive() && FLW.isBusy()) {
-            // Loop until the motor reaches its target position.
             opMode.telemetry.addData("Front Left Encoder", FLW.getCurrentPosition());
             opMode.telemetry.addData("Front Right Encoder", FRW.getCurrentPosition());
             opMode.telemetry.addData("Rear Left Encoder", BLW.getCurrentPosition());
@@ -167,7 +172,6 @@ public class RoboController {
         opMode.telemetry.addData("spin", "");
         opMode.telemetry.update();
 
-        // Reset encoders
         FLW.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         FRW.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         BLW.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -178,7 +182,6 @@ public class RoboController {
         BLW.setPower(speed);
         BRW.setPower(-speed);
 
-        // Set position
         FLW.setTargetPosition(ticks);
         FRW.setTargetPosition(-ticks);
         BLW.setTargetPosition(ticks);
@@ -191,7 +194,6 @@ public class RoboController {
 
 
         while (opMode.opModeIsActive() && FLW.isBusy()) {
-            // Loop until the motor reaches its target position.
             opMode.telemetry.addData("Front Left Encoder", FLW.getCurrentPosition());
             opMode.telemetry.addData("Front Right Encoder", FRW.getCurrentPosition());
             opMode.telemetry.addData("Rear Left Encoder", BLW.getCurrentPosition());
