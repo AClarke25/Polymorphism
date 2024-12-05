@@ -81,6 +81,9 @@ public class TwoPersonDrive extends LinearOpMode {
         // linear slide(s) for outtake arm
         // (provides a threshold for deactivating motor power since joystick may not be at exactly 0)
 
+        // right = extend
+        // left = retract
+
         // triggers control extension of intake arm
         if(armpad.right_trigger > 0.25) {
             roboController.HLS.setPower(-armpad.right_trigger);
@@ -111,11 +114,11 @@ public class TwoPersonDrive extends LinearOpMode {
                 // neutral position
                 roboController.shoulder.setPosition(0);
             } else if(roboController.inArmState == 1){
-                // dropoff position
-                roboController.shoulder.setPosition(0.32);
-            } else if(roboController.inArmState == 2){
                 // pickup position
                 roboController.shoulder.setPosition(0.77);
+            } else if(roboController.inArmState == 2){
+                // drop off position
+                roboController.shoulder.setPosition(0.32);
             }
         }
 
@@ -124,15 +127,15 @@ public class TwoPersonDrive extends LinearOpMode {
         // 1 = open
         // 0 = closed
 
-        // x controls opening and closing claw
-        if(armpad.x && !roboController.inClawLastState) {
+        // x/a controls opening and closing claw
+        if(armpad.a && !roboController.inClawLastState) {
             if (roboController.inClaw.getPosition() <= 0.6) {
                 roboController.inClaw.setPosition(0.8);
             }else{
                 roboController.inClaw.setPosition(0.4);
             }
         }
-        roboController.inClawLastState = armpad.x;
+        roboController.inClawLastState = armpad.a;
 
         // triangle controls the bucket position
         if(armpad.triangle && !roboController.outClawLastState){
