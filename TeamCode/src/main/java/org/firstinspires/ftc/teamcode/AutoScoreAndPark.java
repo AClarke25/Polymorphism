@@ -22,19 +22,24 @@ public class AutoScoreAndPark extends LinearOpMode {
             // Diagonal distance = about 33.94113
 
             // autonomous scoring towards the buckets
+
+            // presetting arm
+            // neutral position
+            roboController.shoulder.setPosition(0);
+
             // move forward
-            roboController.moveOnYAxis(24, 0.5);
+            roboController.moveOnYAxis(24, 0.8);
 
             // rotate left 135 degrees
-            roboController.Spin(-27,0.5);
+            roboController.Spin(-25,0.6);
 
             // move forward
-            roboController.moveOnYAxis(15, 0.5);
+            roboController.moveOnYAxis(15, 0.8);
 
             // extend arm up
-            roboController.VLS.setPower(0.5);
+            roboController.VLS.setPower(-0.8);
 
-            sleep(2000);
+            sleep(5000);
 
             roboController.VLS.setPower(0);
 
@@ -51,17 +56,18 @@ public class AutoScoreAndPark extends LinearOpMode {
             // adjust in opposite way if needed
 
             // retract arm
-            roboController.VLS.setPower(-0.5);
+            roboController.VLS.setPower(0.8);
 
-            sleep(2000);
+            sleep(5000);
 
             roboController.VLS.setPower(0);
 
             // move back
-            roboController.moveOnYAxis(-15, 0.5);
+            roboController.moveOnYAxis(-15, 0.8);
 
+            // **** change speeds later
             // rotate right 45 degrees
-            roboController.Spin(9,0.5);
+            roboController.Spin(6,0.5);
 
             // move back
             roboController.moveOnYAxis(-96,0.5);
