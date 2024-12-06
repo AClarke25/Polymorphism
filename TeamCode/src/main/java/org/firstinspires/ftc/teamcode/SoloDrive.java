@@ -20,10 +20,6 @@ public class SoloDrive extends LinearOpMode {
 
         // run until the end of the match (driver presses STOP)
         while (opModeIsActive()) {
-            // while opMode is running, allow the methods for manipulating the wheels and arms
-            // to be used and print data values
-            roboController.inClaw.setPosition(0.5);
-
             moveRobot(gamepad1);
 
             telemetry.addData("FLW Motor Power", roboController.FLW.getPower());
@@ -117,10 +113,13 @@ public class SoloDrive extends LinearOpMode {
                 roboController.shoulder.setPosition(0);
 
             } else if(roboController.inArmState == 1){
+                // pickup position
+                roboController.shoulder.setPosition(0.735);
+
+                /*
                 // pickup position (slightly hovered)
                 roboController.shoulder.setPosition(0.65);
 
-                /*
                 // 0.65 = open, 0.5 = closed
                 if(roboController.inClaw.getPosition() == 0.65){
                     clawStartedOpen = true;
@@ -142,6 +141,18 @@ public class SoloDrive extends LinearOpMode {
 
         // x/a controls opening and closing claw
         if(gamepad.a && !roboController.inClawLastState) {
+            // initially closed
+            if (roboController.inClaw.getPosition() <= 0.575) {
+                // opening
+                roboController.inClaw.setPosition(0.65);
+
+            // initially opened
+            } else {
+                // closing
+                roboController.inClaw.setPosition(0.5);
+            }
+
+            /*
             // initially closed
             if (roboController.inClaw.getPosition() <= 0.575) {
                 // opening
@@ -169,8 +180,7 @@ public class SoloDrive extends LinearOpMode {
                     // make the arm actually go to the floor
                     roboController.shoulder.setPosition(0.77);
                 }
-
-                /*
+w
                 if(clawStartedOpen){
                     // if in pickup position
                     if(roboController.inArmState == 1){
@@ -196,8 +206,8 @@ public class SoloDrive extends LinearOpMode {
                         roboController.shoulder.setPosition(0.77);
                     }
                 }
-                */
             }
+            */
         }
 
         roboController.inClawLastState = gamepad.a;

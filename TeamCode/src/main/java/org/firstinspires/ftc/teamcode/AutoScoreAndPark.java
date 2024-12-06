@@ -3,7 +3,7 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
-@Autonomous(name = "Auto Score and Park", group = "Concept")
+@Autonomous(name = "LEFT - Auto Score and Park", group = "Concept")
 
 // will score the preset block and park in observation zone
 public class AutoScoreAndPark extends LinearOpMode {
@@ -68,21 +68,20 @@ public class AutoScoreAndPark extends LinearOpMode {
             roboController.VLS.setPower(0);
 
             // move back
-            roboController.moveOnYAxis(-11, 0.8);
+            roboController.moveOnYAxis(-11, 0.85);
 
             // **** change speeds later
             // rotate right 45 degrees
-            roboController.Spin(8.5,0.5);
+            roboController.Spin(8.5,0.85);
 
             // move back
-            roboController.moveOnYAxis(-96,0.5);
-
-            // move left and park in observation zone
-            roboController.moveOnXAxis(-24,0.5);
+            roboController.moveOnYAxis(-96,0.85);
 
             // drop off position
             roboController.shoulder.setPosition(0.32);
 
+            // move left and park in observation zone
+            roboController.moveOnXAxis(-24,0.85);
 
             /*
             // test

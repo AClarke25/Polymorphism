@@ -74,6 +74,8 @@ public class TwoPersonDrive extends LinearOpMode {
     public void moveArm(Gamepad armpad){
         // ** arm movement **
 
+        boolean clawStartedOpen = false;
+
         // powers the robot's (arm) motors using the game pad 2 left joystick
         // (this will make the arm's motor power vary depending on how much you're using the joystick.
         // this can be changed later if we want the motor to have a constant power no matter what
@@ -86,18 +88,18 @@ public class TwoPersonDrive extends LinearOpMode {
 
         // triggers control extension of intake arm
         if(armpad.right_trigger > 0.25) {
-            roboController.HLS.setPower(-armpad.right_trigger);
+            roboController.HLS.setPower(armpad.right_trigger);
         } else if(armpad.left_trigger > 0.25){
-            roboController.HLS.setPower(armpad.left_trigger);
+            roboController.HLS.setPower(-armpad.left_trigger);
         } else{
             roboController.HLS.setPower(0);
         }
 
         // bumpers control extension of outtake arm
         if(armpad.left_bumper){
-            roboController.VLS.setPower(1);
-        } else if(armpad.right_bumper) {
             roboController.VLS.setPower(-1);
+        } else if(armpad.right_bumper) {
+            roboController.VLS.setPower(1);
         } else {
             roboController.VLS.setPower(0);
         }
@@ -113,9 +115,23 @@ public class TwoPersonDrive extends LinearOpMode {
             if(roboController.inArmState == 0){
                 // neutral position
                 roboController.shoulder.setPosition(0);
+
             } else if(roboController.inArmState == 1){
                 // pickup position
-                roboController.shoulder.setPosition(0.77);
+                roboController.shoulder.setPosition(0.735);
+
+                /*
+                // pickup position (slightly hovered)
+                roboController.shoulder.setPosition(0.65);
+
+                // 0.65 = open, 0.5 = closed
+                if(roboController.inClaw.getPosition() == 0.65){
+                    clawStartedOpen = true;
+                } else if(roboController.inClaw.getPosition() == 0.5){
+                    clawStartedOpen = false;
+                }
+                */
+
             } else if(roboController.inArmState == 2){
                 // drop off position
                 roboController.shoulder.setPosition(0.32);
@@ -129,12 +145,75 @@ public class TwoPersonDrive extends LinearOpMode {
 
         // x/a controls opening and closing claw
         if(armpad.a && !roboController.inClawLastState) {
-            if (roboController.inClaw.getPosition() <= 0.6) {
-                roboController.inClaw.setPosition(0.8);
-            }else{
-                roboController.inClaw.setPosition(0.4);
+            // initially closed
+            if (roboController.inClaw.getPosition() <= 0.575) {
+                // opening
+                roboController.inClaw.setPosition(0.65);
+
+                // initially opened
+            } else {
+                // closing
+                roboController.inClaw.setPosition(0.5);
             }
+
+            /*
+            // initially closed
+            if (roboController.inClaw.getPosition() <= 0.575) {
+                // opening
+                roboController.inClaw.setPosition(0.65);
+
+                // if in pickup position
+                if(roboController.inArmState == 1){
+                    // wait a bit to ensure the arm is down
+                    sleep(300);
+
+                    // make the arm hover a bit
+                    roboController.shoulder.setPosition(0.65);
+                }
+
+            // initially opened
+            } else {
+                // closing
+                roboController.inClaw.setPosition(0.5);
+
+                // if in pickup position
+                if (roboController.inArmState == 1) {
+                    // wait a bit to ensure the arm is down
+                    sleep(500);
+
+                    // make the arm actually go to the floor
+                    roboController.shoulder.setPosition(0.77);
+                }
+w
+                if(clawStartedOpen){
+                    // if in pickup position
+                    if(roboController.inArmState == 1){
+                        // wait a bit to ensure the arm is down
+                        sleep(500);
+
+                        // make the arm actually go to the floor
+                        roboController.shoulder.setPosition(0.77);
+                    }
+
+                    // closing
+                    roboController.inClaw.setPosition(0.5);
+                } else {
+                    // closing
+                    roboController.inClaw.setPosition(0.5);
+
+                    // if in pickup position
+                    if (roboController.inArmState == 1) {
+                        // wait a bit to ensure the arm is down
+                        sleep(500);
+
+                        // make the arm actually go to the floor
+                        roboController.shoulder.setPosition(0.77);
+                    }
+                }
+            }
+            */
         }
+
         roboController.inClawLastState = armpad.a;
 
         // triangle controls the bucket position
@@ -150,8 +229,8 @@ public class TwoPersonDrive extends LinearOpMode {
 
         // square controls adjustment of wrist position
         if(armpad.square && !roboController.wristLastState){
-            if (roboController.wrist.getPosition() < 0.5) {
-                roboController.wrist.setPosition(1);
+            if (roboController.wrist.getPosition() < 0.25) {
+                roboController.wrist.setPosition(0.5);
             }else{
                 roboController.wrist.setPosition(0);
             }
