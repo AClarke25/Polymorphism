@@ -34,12 +34,12 @@ public class AutoScoreAndPark extends LinearOpMode {
             roboController.Spin(-25,0.6);
 
             // move forward
-            roboController.moveOnYAxis(15, 0.8);
+            roboController.moveOnYAxis(13, 0.8);
 
             // extend arm up
             roboController.VLS.setPower(-0.8);
 
-            sleep(5000);
+            sleep(4000);
 
             roboController.VLS.setPower(0);
 
@@ -58,12 +58,12 @@ public class AutoScoreAndPark extends LinearOpMode {
             // retract arm
             roboController.VLS.setPower(0.8);
 
-            sleep(5000);
+            sleep(4000);
 
             roboController.VLS.setPower(0);
 
             // move back
-            roboController.moveOnYAxis(-15, 0.8);
+            roboController.moveOnYAxis(-13, 0.8);
 
             // **** change speeds later
             // rotate right 45 degrees
