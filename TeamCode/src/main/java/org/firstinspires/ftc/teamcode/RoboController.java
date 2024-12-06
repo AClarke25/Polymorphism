@@ -83,7 +83,7 @@ public class RoboController {
     }
 
     // auto movement for left and right
-    public void moveOnXAxis(int inches, double speed) {
+    public void moveOnXAxis(double inches, double speed) {
         int ticks = inchesToCounts(inches);
 
         opMode.telemetry.addData("x", "");
@@ -128,7 +128,7 @@ public class RoboController {
     }
 
     // auto movement for forward and back
-    public void moveOnYAxis(int inches, double speed){
+    public void moveOnYAxis(double inches, double speed){
         int ticks = inchesToCounts(inches);
 
         opMode.telemetry.addData("y", "");
@@ -166,7 +166,7 @@ public class RoboController {
         opMode.sleep(250);
     }
 
-    public void Spin(int inches, double speed) {
+    public void Spin(double inches, double speed) {
         int ticks = inchesToCounts(inches);
 
         opMode.telemetry.addData("spin", "");

@@ -22,6 +22,8 @@ public class SoloDrive extends LinearOpMode {
         while (opModeIsActive()) {
             // while opMode is running, allow the methods for manipulating the wheels and arms
             // to be used and print data values
+            roboController.inClaw.setPosition(0.5);
+
             moveRobot(gamepad1);
 
             telemetry.addData("FLW Motor Power", roboController.FLW.getPower());
@@ -72,6 +74,8 @@ public class SoloDrive extends LinearOpMode {
 
         // ** arm movement **
 
+        boolean clawStartedOpen = false;
+
         // powers the robot's (arm) motors using the game pad 2 left joystick
         // (this will make the arm's motor power vary depending on how much you're using the joystick.
         // this can be changed later if we want the motor to have a constant power no matter what
@@ -111,9 +115,20 @@ public class SoloDrive extends LinearOpMode {
             if(roboController.inArmState == 0){
                 // neutral position
                 roboController.shoulder.setPosition(0);
+
             } else if(roboController.inArmState == 1){
-                // pickup position
-                roboController.shoulder.setPosition(0.77);
+                // pickup position (slightly hovered)
+                roboController.shoulder.setPosition(0.65);
+
+                /*
+                // 0.65 = open, 0.5 = closed
+                if(roboController.inClaw.getPosition() == 0.65){
+                    clawStartedOpen = true;
+                } else if(roboController.inClaw.getPosition() == 0.5){
+                    clawStartedOpen = false;
+                }
+                */
+
             } else if(roboController.inArmState == 2){
                 // drop off position
                 roboController.shoulder.setPosition(0.32);
@@ -127,12 +142,64 @@ public class SoloDrive extends LinearOpMode {
 
         // x/a controls opening and closing claw
         if(gamepad.a && !roboController.inClawLastState) {
-            if (roboController.inClaw.getPosition() <= 0.6) {
-                roboController.inClaw.setPosition(0.8);
-            }else{
-                roboController.inClaw.setPosition(0.4);
+            // initially closed
+            if (roboController.inClaw.getPosition() <= 0.575) {
+                // opening
+                roboController.inClaw.setPosition(0.65);
+
+                // if in pickup position
+                if(roboController.inArmState == 1){
+                    // wait a bit to ensure the arm is down
+                    sleep(300);
+
+                    // make the arm hover a bit
+                    roboController.shoulder.setPosition(0.65);
+                }
+
+            // initially opened
+            } else {
+                // closing
+                roboController.inClaw.setPosition(0.5);
+
+                // if in pickup position
+                if (roboController.inArmState == 1) {
+                    // wait a bit to ensure the arm is down
+                    sleep(500);
+
+                    // make the arm actually go to the floor
+                    roboController.shoulder.setPosition(0.77);
+                }
+
+                /*
+                if(clawStartedOpen){
+                    // if in pickup position
+                    if(roboController.inArmState == 1){
+                        // wait a bit to ensure the arm is down
+                        sleep(500);
+
+                        // make the arm actually go to the floor
+                        roboController.shoulder.setPosition(0.77);
+                    }
+
+                    // closing
+                    roboController.inClaw.setPosition(0.5);
+                } else {
+                    // closing
+                    roboController.inClaw.setPosition(0.5);
+
+                    // if in pickup position
+                    if (roboController.inArmState == 1) {
+                        // wait a bit to ensure the arm is down
+                        sleep(500);
+
+                        // make the arm actually go to the floor
+                        roboController.shoulder.setPosition(0.77);
+                    }
+                }
+                */
             }
         }
+
         roboController.inClawLastState = gamepad.a;
 
         // triangle controls the bucket position
@@ -148,8 +215,8 @@ public class SoloDrive extends LinearOpMode {
 
         // square controls adjustment of wrist position
         if(gamepad.square && !roboController.wristLastState){
-            if (roboController.wrist.getPosition() < 0.5) {
-                roboController.wrist.setPosition(1);
+            if (roboController.wrist.getPosition() < 0.25) {
+                roboController.wrist.setPosition(0.5);
             }else{
                 roboController.wrist.setPosition(0);
             }
