@@ -59,7 +59,6 @@ public class TwoPersonDrive extends LinearOpMode {
 
         // drive, turn, and strafe logic
         // https://youtu.be/jRVUHapKx4o?si=1jVJ-ts7d2rkHCdq
-
         roboController.FLW.setPower(drivePower + turnPower + strafePower);
         roboController.FRW.setPower(drivePower - turnPower - strafePower);
         roboController.BLW.setPower(drivePower + turnPower - strafePower);

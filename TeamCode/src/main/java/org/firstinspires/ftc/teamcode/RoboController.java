@@ -92,7 +92,7 @@ public class RoboController {
         opMode.telemetry.addData("x", "");
         opMode.telemetry.update();
 
-        // Reset encoders
+        // Reset encoders (so that the tracked distance of the robot always starts from 0)
         FLW.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         FRW.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         BLW.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
