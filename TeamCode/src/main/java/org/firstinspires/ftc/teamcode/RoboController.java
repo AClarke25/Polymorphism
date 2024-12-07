@@ -33,6 +33,7 @@ public class RoboController {
     public int inArmState;
     public boolean inArmLastState;
     public boolean wristLastState;
+    public boolean inArmLastStateLower;
 
     public RoboController(LinearOpMode opMode){
 
@@ -64,6 +65,8 @@ public class RoboController {
         inArmState = -1;
         inArmLastState = false;
 
+        inArmLastStateLower = false;
+
         // presetting
         FRW.setDirection(DcMotorSimple.Direction.REVERSE);
         BRW.setDirection(DcMotorSimple.Direction.REVERSE);
@@ -83,7 +86,7 @@ public class RoboController {
     }
 
     // auto movement for left and right
-    public void moveOnXAxis(double inches, double speed) {
+    public void moveOnXAxis(int inches, double speed) {
         int ticks = inchesToCounts(inches);
 
         opMode.telemetry.addData("x", "");
@@ -128,7 +131,7 @@ public class RoboController {
     }
 
     // auto movement for forward and back
-    public void moveOnYAxis(double inches, double speed){
+    public void moveOnYAxis(int inches, double speed){
         int ticks = inchesToCounts(inches);
 
         opMode.telemetry.addData("y", "");
@@ -166,7 +169,7 @@ public class RoboController {
         opMode.sleep(250);
     }
 
-    public void Spin(double inches, double speed) {
+    public void Spin(int inches, double speed) {
         int ticks = inchesToCounts(inches);
 
         opMode.telemetry.addData("spin", "");

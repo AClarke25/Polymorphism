@@ -117,8 +117,8 @@ public class TwoPersonDrive extends LinearOpMode {
                 roboController.shoulder.setPosition(0);
 
             } else if(roboController.inArmState == 1){
-                // pickup position
-                roboController.shoulder.setPosition(0.735);
+                // pickup position (slightly hovered)
+                roboController.shoulder.setPosition(0.64);
 
                 /*
                 // pickup position (slightly hovered)
@@ -138,7 +138,27 @@ public class TwoPersonDrive extends LinearOpMode {
             }
         }
 
+        if(armpad.dpad_up || armpad.dpad_down || armpad.dpad_left || armpad.dpad_right){
+            if(!roboController.inArmLastStateLower){
+                if(roboController.inArmState == 1) {
+                    // pickup position (on block level)
+                    roboController.shoulder.setPosition(0.73);
+                }
+
+                roboController.inArmLastStateLower = true;
+            }
+        } else {
+            if(roboController.inArmState == 1) {
+                // pickup position (slightly hovered)
+                roboController.shoulder.setPosition(0.64);
+            }
+
+            roboController.inArmLastStateLower = false;
+        }
+
         roboController.inArmLastState = armpad.circle;
+
+        //roboController.inArmLastStateLower = (armpad.dpad_up || armpad.dpad_down || armpad.dpad_left || armpad.dpad_right);
 
         // 1 = open
         // 0 = closed
@@ -153,7 +173,7 @@ public class TwoPersonDrive extends LinearOpMode {
                 // initially opened
             } else {
                 // closing
-                roboController.inClaw.setPosition(0.5);
+                roboController.inClaw.setPosition(0.4);
             }
 
             /*

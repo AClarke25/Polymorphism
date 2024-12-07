@@ -39,7 +39,7 @@ public class AutoScoreAndPark extends LinearOpMode {
             roboController.Spin(-25,0.7);
 
             // move forward
-            roboController.moveOnYAxis(11, 0.85);
+            roboController.moveOnYAxis(12, 0.85);
 
             // extend arm up
             roboController.VLS.setPower(-1);
@@ -68,20 +68,20 @@ public class AutoScoreAndPark extends LinearOpMode {
             roboController.VLS.setPower(0);
 
             // move back
-            roboController.moveOnYAxis(-11, 0.85);
+            roboController.moveOnYAxis(-12, 0.85);
 
             // **** change speeds later
             // rotate right 45 degrees
-            roboController.Spin(8.5,0.85);
+            roboController.Spin(9,0.85);
 
             // move back
-            roboController.moveOnYAxis(-96,0.85);
+            roboController.moveOnYAxis(-95,0.85);
 
             // drop off position
             roboController.shoulder.setPosition(0.32);
 
             // move left and park in observation zone
-            roboController.moveOnXAxis(-24,0.85);
+            roboController.moveOnXAxis(-25,0.85);
 
             /*
             // test
