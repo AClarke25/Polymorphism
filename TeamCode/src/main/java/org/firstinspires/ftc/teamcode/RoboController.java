@@ -86,8 +86,8 @@ public class RoboController {
     }
 
     // auto movement for left and right
-    public void moveOnXAxis(int inches, double speed) {
-        int ticks = inchesToCounts(inches);
+    public void moveOnXAxis(double inches, double speed) {
+        double ticks = inchesToCounts(inches);
 
         opMode.telemetry.addData("x", "");
         opMode.telemetry.update();
@@ -105,10 +105,10 @@ public class RoboController {
         BRW.setPower(speed);
 
         // how far the wheel movement should bring the robot
-        FLW.setTargetPosition(ticks);
-        FRW.setTargetPosition(-ticks);
-        BLW.setTargetPosition(-ticks);
-        BRW.setTargetPosition(ticks);
+        FLW.setTargetPosition(inchesToCounts(inches));
+        FRW.setTargetPosition(-(inchesToCounts(inches)));
+        BLW.setTargetPosition(-(inchesToCounts(inches)));
+        BRW.setTargetPosition(inchesToCounts(inches));
 
         // powers the wheels until it has reached the specified distance
         FLW.setMode(DcMotor.RunMode.RUN_TO_POSITION);
@@ -131,7 +131,7 @@ public class RoboController {
     }
 
     // auto movement for forward and back
-    public void moveOnYAxis(int inches, double speed){
+    public void moveOnYAxis(double inches, double speed){
         int ticks = inchesToCounts(inches);
 
         opMode.telemetry.addData("y", "");
@@ -147,10 +147,10 @@ public class RoboController {
         BLW.setPower(speed);
         BRW.setPower(speed);
 
-        FLW.setTargetPosition(ticks);
-        FRW.setTargetPosition(ticks);
-        BLW.setTargetPosition(ticks);
-        BRW.setTargetPosition(ticks);
+        FLW.setTargetPosition(inchesToCounts(inches));
+        FRW.setTargetPosition(inchesToCounts(inches));
+        BLW.setTargetPosition(inchesToCounts(inches));
+        BRW.setTargetPosition(inchesToCounts(inches));
 
         FLW.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         FRW.setMode(DcMotor.RunMode.RUN_TO_POSITION);
@@ -169,7 +169,7 @@ public class RoboController {
         opMode.sleep(250);
     }
 
-    public void Spin(int inches, double speed) {
+    public void Spin(double inches, double speed) {
         int ticks = inchesToCounts(inches);
 
         opMode.telemetry.addData("spin", "");
@@ -185,10 +185,10 @@ public class RoboController {
         BLW.setPower(speed);
         BRW.setPower(-speed);
 
-        FLW.setTargetPosition(ticks);
-        FRW.setTargetPosition(-ticks);
-        BLW.setTargetPosition(ticks);
-        BRW.setTargetPosition(-ticks);
+        FLW.setTargetPosition(inchesToCounts(inches));
+        FRW.setTargetPosition(-(inchesToCounts(inches)));
+        BLW.setTargetPosition(inchesToCounts(inches));
+        BRW.setTargetPosition(-(inchesToCounts(inches)));
 
         FLW.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         FRW.setMode(DcMotor.RunMode.RUN_TO_POSITION);

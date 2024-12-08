@@ -24,8 +24,8 @@ public class AutoTWICEScoreAndPark extends LinearOpMode {
             // autonomous scoring towards the buckets
 
             // **** presetting arm
-            // neutral bucket position
-            roboController.shoulder.setPosition(0);
+            // neutral position
+            roboController.shoulder.setPosition(0.125);
 
             // opened claw
             roboController.inClaw.setPosition(0.4);
@@ -40,13 +40,14 @@ public class AutoTWICEScoreAndPark extends LinearOpMode {
 
             // **** actual movement
             // move forward
-            roboController.moveOnYAxis(24, 0.9);
+            // ******* MAYBE 25 INSTEAD OF 24??????
+            roboController.moveOnYAxis(26, 0.9);
 
             // rotate left 135 degrees
-            roboController.Spin(-25,0.8);
+            roboController.Spin(-24,0.8);
 
             // move forward
-            roboController.moveOnYAxis(12, 0.9);
+            roboController.moveOnYAxis(13, 0.9);
 
             // extend arm up
             roboController.VLS.setPower(-1);
@@ -75,7 +76,7 @@ public class AutoTWICEScoreAndPark extends LinearOpMode {
             roboController.VLS.setPower(0);
 
             // move back
-            roboController.moveOnYAxis(-12, 0.9);
+            roboController.moveOnYAxis(-13, 0.9);
 
 
             // rotate right 45 degrees
@@ -83,7 +84,7 @@ public class AutoTWICEScoreAndPark extends LinearOpMode {
 
             // **** new stuff
             // move right
-            roboController.moveOnXAxis(6, 0.8);
+            roboController.moveOnXAxis(12, 0.8);
 
             // extend arm out
             roboController.HLS.setPower(-0.5);
@@ -92,8 +93,18 @@ public class AutoTWICEScoreAndPark extends LinearOpMode {
 
             roboController.HLS.setPower(0);
 
-            // pickup position (on block level)
-            roboController.shoulder.setPosition(0.73);
+            // accelerate slightly
+            roboController.shoulder.setPosition(0.55);
+
+            sleep(300);
+
+            // pickup position (slightly hovered)
+            roboController.shoulder.setPosition(0.64);
+
+            sleep(300);
+
+            // pickup position (on block level a bit)
+            roboController.shoulder.setPosition(0.72);
 
             // ensure its down
             sleep(400);
@@ -117,18 +128,20 @@ public class AutoTWICEScoreAndPark extends LinearOpMode {
             // opened claw
             roboController.inClaw.setPosition(0.4);
 
+            sleep(200);
+
             // neutral position
             roboController.shoulder.setPosition(0);
 
             // move left
-            roboController.moveOnXAxis(-6, 0.7);
+            roboController.moveOnXAxis(-12, 0.7);
 
             // rotate left 45 degrees
             roboController.Spin(-9,0.85);
 
             // **** initial main movement again
             // move forward
-            roboController.moveOnYAxis(12, 0.85);
+            roboController.moveOnYAxis(13, 0.85);
 
             // extend arm up
             roboController.VLS.setPower(-1);
@@ -153,7 +166,7 @@ public class AutoTWICEScoreAndPark extends LinearOpMode {
             roboController.VLS.setPower(0);
 
             // move back
-            roboController.moveOnYAxis(-12, 0.85);
+            roboController.moveOnYAxis(-13, 0.85);
 
             // rotate right 45 degrees
             roboController.Spin(9,0.85);

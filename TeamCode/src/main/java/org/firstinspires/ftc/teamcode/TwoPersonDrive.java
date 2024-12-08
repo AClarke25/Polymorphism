@@ -113,7 +113,7 @@ public class TwoPersonDrive extends LinearOpMode {
 
             if(roboController.inArmState == 0){
                 // neutral position
-                roboController.shoulder.setPosition(0);
+                roboController.shoulder.setPosition(0.125);
 
             } else if(roboController.inArmState == 1){
                 // pickup position (slightly hovered)

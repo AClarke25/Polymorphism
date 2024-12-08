@@ -25,7 +25,7 @@ public class AutoScoreAndPark extends LinearOpMode {
 
             // presetting arm
             // neutral position
-            roboController.shoulder.setPosition(0);
+            roboController.shoulder.setPosition(0.125);
 
             sleep(500);
 
@@ -33,10 +33,10 @@ public class AutoScoreAndPark extends LinearOpMode {
             roboController.outClaw.setPosition(0);
 
             // move forward
-            roboController.moveOnYAxis(24, 0.85);
+            roboController.moveOnYAxis(26, 0.85);
 
             // rotate left 135 degrees
-            roboController.Spin(-25,0.7);
+            roboController.Spin(-24.5,0.7);
 
             // move forward
             roboController.moveOnYAxis(12, 0.85);
@@ -70,15 +70,15 @@ public class AutoScoreAndPark extends LinearOpMode {
             // move back
             roboController.moveOnYAxis(-12, 0.85);
 
+            // drop off position
+            roboController.shoulder.setPosition(0.32);
+
             // **** change speeds later
             // rotate right 45 degrees
             roboController.Spin(9,0.85);
 
             // move back
             roboController.moveOnYAxis(-95,0.85);
-
-            // drop off position
-            roboController.shoulder.setPosition(0.32);
 
             // move left and park in observation zone
             roboController.moveOnXAxis(-25,0.85);
