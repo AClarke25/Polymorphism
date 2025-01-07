@@ -33,6 +33,7 @@ public class SoloDrive extends LinearOpMode {
             telemetry.addData("Intake Claw Servo Position", roboController.inClaw.getPosition());
             telemetry.addData("Shoulder Servo Position", roboController.shoulder.getPosition());
             telemetry.addData("Wrist Servo Position", roboController.wrist.getPosition());
+            telemetry.addData("Specimen Servo Position", roboController.specimenArm.getPosition());
 
             telemetry.addData("Status", "Running");
             telemetry.update();
@@ -69,8 +70,6 @@ public class SoloDrive extends LinearOpMode {
 
         // ** arm movement **
 
-        boolean clawStartedOpen = false;
-
         // powers the robot's (arm) motors using the game pad 2 left joystick
         // (this will make the arm's motor power vary depending on how much you're using the joystick.
         // this can be changed later if we want the motor to have a constant power no matter what
@@ -82,60 +81,49 @@ public class SoloDrive extends LinearOpMode {
         // left = retract
 
         // triggers control extension of intake arm
-        if(gamepad.right_trigger > 0.25) {
+        if (gamepad.right_trigger > 0.25) {
             roboController.HLS.setPower(gamepad.right_trigger);
-        } else if(gamepad.left_trigger > 0.25){
+        } else if (gamepad.left_trigger > 0.25) {
             roboController.HLS.setPower(-gamepad.left_trigger);
-        } else{
+        } else {
             roboController.HLS.setPower(0);
         }
 
         // bumpers control extension of outtake arm
-        if(gamepad.left_bumper){
+        if (gamepad.left_bumper) {
             roboController.VLS.setPower(-1);
-        } else if(gamepad.right_bumper) {
+        } else if (gamepad.right_bumper) {
             roboController.VLS.setPower(1);
         } else {
             roboController.VLS.setPower(0);
         }
 
         // circle controls 3 intake arm positions
-        if(gamepad.circle && !roboController.inArmLastState){
-            if(roboController.inArmState == 2){
+        if (gamepad.circle && !roboController.inArmLastState) {
+            if (roboController.inArmState == 2) {
                 roboController.inArmState = 0;
             } else {
                 roboController.inArmState++;
             }
 
-            if(roboController.inArmState == 0){
+            if (roboController.inArmState == 0) {
                 // neutral position
-                roboController.shoulder.setPosition(0.125);
+                roboController.shoulder.setPosition(0.1);
 
-            } else if(roboController.inArmState == 1){
+            } else if (roboController.inArmState == 1) {
                 // pickup position (slightly hovered)
                 roboController.shoulder.setPosition(0.64);
 
-                /*
-                // pickup position (slightly hovered)
-                roboController.shoulder.setPosition(0.65);
-
-                // 0.65 = open, 0.5 = closed
-                if(roboController.inClaw.getPosition() == 0.65){
-                    clawStartedOpen = true;
-                } else if(roboController.inClaw.getPosition() == 0.5){
-                    clawStartedOpen = false;
-                }
-                */
-
-            } else if(roboController.inArmState == 2){
+            } else if (roboController.inArmState == 2) {
                 // drop off position
-                roboController.shoulder.setPosition(0.32);
+                roboController.shoulder.setPosition(0.26);
             }
         }
 
-        if(gamepad.dpad_up || gamepad.dpad_down || gamepad.dpad_left || gamepad.dpad_right){
-            if(!roboController.inArmLastStateLower){
-                if(roboController.inArmState == 1) {
+        // hold dpad down to lower intake arm more
+        if (gamepad.dpad_down) {
+            if (!roboController.inArmLastStateLower) {
+                if (roboController.inArmState == 1) {
                     // pickup position (on block level)
                     roboController.shoulder.setPosition(0.73);
                 }
@@ -143,7 +131,7 @@ public class SoloDrive extends LinearOpMode {
                 roboController.inArmLastStateLower = true;
             }
         } else {
-            if(roboController.inArmState == 1) {
+            if (roboController.inArmState == 1) {
                 // pickup position (slightly hovered)
                 roboController.shoulder.setPosition(0.64);
             }
@@ -153,89 +141,31 @@ public class SoloDrive extends LinearOpMode {
 
         roboController.inArmLastState = gamepad.circle;
 
-        //roboController.inArmLastStateLower = (gamepad.dpad_up || gamepad.dpad_down || gamepad.dpad_left || gamepad.dpad_right);
-
         // 1 = open
         // 0 = closed
 
         // x/a controls opening and closing claw
-        if(gamepad.a && !roboController.inClawLastState) {
+        if (gamepad.a && !roboController.inClawLastState) {
             // initially closed
             if (roboController.inClaw.getPosition() <= 0.575) {
                 // opening
                 roboController.inClaw.setPosition(0.65);
 
-            // initially opened
+                // initially opened
             } else {
                 // closing
                 roboController.inClaw.setPosition(0.4);
             }
 
-            /*
-            // initially closed
-            if (roboController.inClaw.getPosition() <= 0.575) {
-                // opening
-                roboController.inClaw.setPosition(0.65);
-
-                // if in pickup position
-                if(roboController.inArmState == 1){
-                    // wait a bit to ensure the arm is down
-                    sleep(300);
-
-                    // make the arm hover a bit
-                    roboController.shoulder.setPosition(0.65);
-                }
-
-            // initially opened
-            } else {
-                // closing
-                roboController.inClaw.setPosition(0.5);
-
-                // if in pickup position
-                if (roboController.inArmState == 1) {
-                    // wait a bit to ensure the arm is down
-                    sleep(500);
-
-                    // make the arm actually go to the floor
-                    roboController.shoulder.setPosition(0.77);
-                }
-w
-                if(clawStartedOpen){
-                    // if in pickup position
-                    if(roboController.inArmState == 1){
-                        // wait a bit to ensure the arm is down
-                        sleep(500);
-
-                        // make the arm actually go to the floor
-                        roboController.shoulder.setPosition(0.77);
-                    }
-
-                    // closing
-                    roboController.inClaw.setPosition(0.5);
-                } else {
-                    // closing
-                    roboController.inClaw.setPosition(0.5);
-
-                    // if in pickup position
-                    if (roboController.inArmState == 1) {
-                        // wait a bit to ensure the arm is down
-                        sleep(500);
-
-                        // make the arm actually go to the floor
-                        roboController.shoulder.setPosition(0.77);
-                    }
-                }
-            }
-            */
         }
 
         roboController.inClawLastState = gamepad.a;
 
         // triangle controls the bucket position
-        if(gamepad.triangle && !roboController.outClawLastState){
+        if (gamepad.triangle && !roboController.outClawLastState) {
             if (roboController.outClaw.getPosition() < 0.5) {
                 roboController.outClaw.setPosition(1);
-            }else{
+            } else {
                 roboController.outClaw.setPosition(0);
             }
         }
@@ -243,14 +173,35 @@ w
         roboController.outClawLastState = gamepad.triangle;
 
         // square controls adjustment of wrist position
-        if(gamepad.square && !roboController.wristLastState){
+        if (gamepad.square && !roboController.wristLastState) {
             if (roboController.wrist.getPosition() < 0.25) {
                 roboController.wrist.setPosition(0.5);
-            }else{
+            } else {
                 roboController.wrist.setPosition(0);
             }
         }
 
         roboController.wristLastState = gamepad.square;
+
+        // dpad up for toggling specimen arm
+        if(gamepad.dpad_up && !roboController.specimenArmLastState){
+            // preset specimen arm down
+            if(roboController.justStarted){
+                roboController.specimenArm.setPosition(0);
+
+                roboController.justStarted = false;
+            } else {
+
+                if (roboController.specimenArm.getPosition() < 0.5) {
+                    // set specimenArm position 1
+                    roboController.specimenArm.setPosition(0.738);
+                } else {
+                    // set specimenArm position 2
+                    roboController.specimenArm.setPosition(0.25);
+                }
+            }
+        }
+
+        roboController.specimenArmLastState = gamepad.dpad_up;
     }
 }

@@ -26,14 +26,17 @@ public class RoboController {
     public Servo shoulder; // lower part closest to linear slide
     public Servo wrist; // upper part
     public Servo inClaw; //servo closest to white inclaw
+    public Servo specimenArm;
 
     // button logic variables
     public boolean inClawLastState;
     public boolean outClawLastState;
+    public boolean specimenArmLastState;
     public int inArmState;
     public boolean inArmLastState;
     public boolean wristLastState;
     public boolean inArmLastStateLower;
+    public boolean justStarted;
 
     public RoboController(LinearOpMode opMode){
 
@@ -52,13 +55,17 @@ public class RoboController {
         wrist = hardwareMap.get(Servo.class,"wrist");
         inClaw = hardwareMap.get(Servo.class,"inClaw");
 
-        //outtake arm config
+        // outtake arm config
         VLS = hardwareMap.get(DcMotor.class,"VLS");
         outClaw = hardwareMap.get(Servo.class,"outClaw");
+
+        // specimen arm
+        specimenArm = hardwareMap.get(Servo.class,"specimenArm");
 
         // logic booleans
         inClawLastState = false;
         outClawLastState = false;
+        specimenArmLastState = false;
 
         wristLastState = false;
 
@@ -66,6 +73,9 @@ public class RoboController {
         inArmLastState = false;
 
         inArmLastStateLower = false;
+
+        // presetVariable
+        justStarted = true;
 
         // presetting
         FRW.setDirection(DcMotorSimple.Direction.REVERSE);
