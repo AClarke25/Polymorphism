@@ -19,7 +19,7 @@ public class RoboController {
     public DcMotor BLW;
     public DcMotor BRW;
 
-    // arm parts=
+    // arm parts
     public DcMotor VLS; // linear slide for outtake (Vertical Linear Slide)
     public DcMotor HLS; // linear slide for intake (Horizontal Linear Slide)
     public Servo outClaw; // bucket
@@ -27,6 +27,7 @@ public class RoboController {
     public Servo wrist; // upper part
     public Servo inClaw; //servo closest to white inclaw
     public Servo specimenArm;
+    public DcMotor hangingArm;
 
     // button logic variables
     public boolean inClawLastState;
@@ -61,6 +62,9 @@ public class RoboController {
 
         // specimen arm
         specimenArm = hardwareMap.get(Servo.class,"specimenArm");
+
+        // hanging arm
+        hangingArm = hardwareMap.get(DcMotor.class,"hangingArm");
 
         // logic booleans
         inClawLastState = false;

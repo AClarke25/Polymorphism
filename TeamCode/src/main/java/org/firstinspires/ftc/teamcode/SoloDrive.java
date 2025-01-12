@@ -203,5 +203,15 @@ public class SoloDrive extends LinearOpMode {
         }
 
         roboController.specimenArmLastState = gamepad.dpad_up;
+
+        // solo driver will use right and left dpad (only in 2-person drive) to control
+        // hanging arm linear slide
+        if(gamepad.dpad_right){
+            roboController.hangingArm.setPower(1);
+        } else if(gamepad.dpad_left) {
+            roboController.hangingArm.setPower(-1);
+        } else {
+            roboController.hangingArm.setPower(0);
+        }
     }
 }
