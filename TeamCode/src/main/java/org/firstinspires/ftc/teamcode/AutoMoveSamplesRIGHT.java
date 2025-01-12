@@ -3,10 +3,10 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
-@Autonomous(name = "Auto Move Samples", group = "Concept")
+@Autonomous(name = "Auto Move Samples LEFT", group = "Concept")
 
 // will score the preset block and park in observation zone
-public class AutoMoveSamples extends LinearOpMode {
+public class AutoMoveSamplesRIGHT extends LinearOpMode {
 
     @Override
     public void runOpMode() {
@@ -32,41 +32,28 @@ public class AutoMoveSamples extends LinearOpMode {
             // preset tilt bucket up
             roboController.outClaw.setPosition(0);
 
+            // move right one tile
+            roboController.moveOnXAxis(24, 0.6);
+
+            // 1
             // move forward
             roboController.moveOnYAxis(50, 0.8);
 
-            // move all the way right
+            // move right
             roboController.moveOnXAxis(10, 0.5);
 
             // move back
             roboController.moveOnYAxis(-48, 0.8);
 
+            // 2
             // move forward
             roboController.moveOnYAxis(48, 0.8);
 
-            // move all the way right
+            // move right
             roboController.moveOnXAxis(10, 0.5);
 
             // move back
             roboController.moveOnYAxis(-48, 0.8);
-
-            // move forward
-            roboController.moveOnYAxis(48, 0.8);
-
-            // move all the way right
-            roboController.moveOnXAxis(10, 0.5);
-
-            // move back
-            roboController.moveOnYAxis(-48, 0.8);
-
-            // move forward
-            roboController.moveOnYAxis(30, 0.8);
-
-            // wait for 15 seconds for human player to attach clips onto samples
-            sleep(15000);
-
-            // move back and park (kinda undershot it so it wouldn't slam against the wall)
-            roboController.moveOnYAxis(-25, 0.6);
         }
     }
 }

@@ -74,6 +74,16 @@ public class TwoPersonDrive extends LinearOpMode {
         telemetry.addData("Drive Power", drivePower);
         telemetry.addData("Strafe Power", strafePower);
         telemetry.addData("Turn Power", turnPower);
+
+        // solo driver will use up and down dpad (only in 2-person drive) to control
+        // hanging arm linear slide
+        if(movepad.dpad_up){
+            roboController.hangingArm.setPower(1);
+        } else if(movepad.dpad_down) {
+            roboController.hangingArm.setPower(-1);
+        } else {
+            roboController.hangingArm.setPower(0);
+        }
     }
 
     public void moveArm(Gamepad armpad){

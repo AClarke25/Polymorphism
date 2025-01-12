@@ -27,7 +27,7 @@ public class AutoParkRIGHT extends LinearOpMode {
             roboController.shoulder.setPosition(0.32);
 
             // move right
-            roboController.moveOnXAxis(30, 0.8);
+            roboController.moveOnXAxis(40, 0.8);
         }
     }
 }
