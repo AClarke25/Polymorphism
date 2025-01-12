@@ -172,7 +172,6 @@ public class TwoPersonDrive extends LinearOpMode {
                 // closing
                 roboController.inClaw.setPosition(0.4);
             }
-
         }
 
         roboController.inClawLastState = armpad.a;
@@ -215,16 +214,6 @@ public class TwoPersonDrive extends LinearOpMode {
                     // set specimenArm position 2
                     roboController.specimenArm.setPosition(0.25);
                 }
-
-                /*
-                if (roboController.specimenArm.getPosition() > 0.3) {
-                    // set specimenArm position 1
-                    roboController.specimenArm.setPosition(0.075);
-                } else {
-                    // set specimenArm position 2
-                    roboController.specimenArm.setPosition(0.6);
-                }
-                 */
             }
         }
 
