@@ -23,23 +23,11 @@ public class AutoParkLEFT extends LinearOpMode {
 
             // autonomous scoring towards the buckets
 
-            // presetting arm
-            // drop off position
+            // preset drop off position
             roboController.shoulder.setPosition(0.32);
 
-            sleep(500);
-
-            // preset tilt bucket up
-            roboController.outClaw.setPosition(0);
-
-            // move forward
-            roboController.moveOnYAxis(24, 0.8);
-
-            // move all the way right
-            roboController.moveOnXAxis(96, 0.8);
-
-            // move back
-            roboController.moveOnYAxis(-24, 0.8);
+            // move right
+            roboController.moveOnXAxis(-24, 0.8);
         }
     }
 }

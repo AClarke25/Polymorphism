@@ -54,14 +54,29 @@ public class TwoPersonDrive extends LinearOpMode {
         double strafePower = 0;
         double turnPower = 0;
 
-        // moves the robot's (wheel) motors forward and back using the game pad 1 left joystick
-        drivePower = -movepad.left_stick_y;
+        if(movepad.right_bumper){
+            // wheel driver button to slow down movement when pressed
 
-        // moves the robot's (wheel) motors left and right using the game pad 1 left joystick
-        strafePower = movepad.left_stick_x;
+            // moves the robot's (wheel) motors forward and back using the game pad 1 left joystick
+            drivePower = (-movepad.left_stick_y) * 0.25;
 
-        // turns the robot's (wheel) motors left and right using the game pad 1 right joystick
-        turnPower = movepad.right_stick_x;
+            // moves the robot's (wheel) motors left and right using the game pad 1 left joystick
+            strafePower = (movepad.left_stick_x) * 0.25;
+
+            // turns the robot's (wheel) motors left and right using the game pad 1 right joystick
+            turnPower = (movepad.right_stick_x) * 0.25;
+        } else {
+            // if button isn't pressed it'll move normally
+
+            // moves the robot's (wheel) motors forward and back using the game pad 1 left joystick
+            drivePower = -movepad.left_stick_y;
+
+            // moves the robot's (wheel) motors left and right using the game pad 1 left joystick
+            strafePower = movepad.left_stick_x;
+
+            // turns the robot's (wheel) motors left and right using the game pad 1 right joystick
+            turnPower = movepad.right_stick_x;
+        }
 
         // drive, turn, and strafe logic
         // https://youtu.be/jRVUHapKx4o?si=1jVJ-ts7d2rkHCdq
@@ -70,10 +85,20 @@ public class TwoPersonDrive extends LinearOpMode {
         roboController.BLW.setPower(drivePower + turnPower - strafePower);
         roboController.BRW.setPower(drivePower - turnPower + strafePower);
 
-
         telemetry.addData("Drive Power", drivePower);
         telemetry.addData("Strafe Power", strafePower);
         telemetry.addData("Turn Power", turnPower);
+
+        // wheels driver will use up and down dpad (only in 2-person drive) to control
+        // hanging arm linear slide
+        // WHY IS IT SO SLOW IF THE MAX POWER IS 1????
+        if(movepad.dpad_up){
+            roboController.hangingArm.setPower(10);
+        } else if(movepad.dpad_down) {
+            roboController.hangingArm.setPower(-10);
+        } else {
+            roboController.hangingArm.setPower(0);
+        }
     }
 
     public void moveArm(Gamepad armpad){
