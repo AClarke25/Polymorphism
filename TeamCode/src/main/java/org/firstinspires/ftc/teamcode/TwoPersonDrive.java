@@ -75,6 +75,28 @@ public class TwoPersonDrive extends LinearOpMode {
         telemetry.addData("Strafe Power", strafePower);
         telemetry.addData("Turn Power", turnPower);
 
+        // dpad up for toggling specimen arm
+        if(movepad.dpad_up && !roboController.specimenArmLastState){
+            // preset specimen arm down
+            if(roboController.justStarted){
+                roboController.specimenArm.setPosition(0);
+
+                roboController.justStarted = false;
+            } else {
+
+                if (roboController.specimenArm.getPosition() < 0.5) {
+                    // set specimenArm position 1
+                    roboController.specimenArm.setPosition(0.738);
+                } else {
+                    // set specimenArm position 2
+                    roboController.specimenArm.setPosition(0.25);
+                }
+            }
+        }
+
+        roboController.specimenArmLastState = movepad.dpad_up;
+
+        /*
         // solo driver will use up and down dpad (only in 2-person drive) to control
         // hanging arm linear slide
         if(movepad.dpad_up){
@@ -84,6 +106,7 @@ public class TwoPersonDrive extends LinearOpMode {
         } else {
             roboController.hangingArm.setPower(0);
         }
+         */
     }
 
     public void moveArm(Gamepad armpad){
@@ -208,6 +231,7 @@ public class TwoPersonDrive extends LinearOpMode {
 
         roboController.wristLastState = armpad.square;
 
+        /*
         // dpad up for toggling specimen arm
         if(armpad.dpad_up && !roboController.specimenArmLastState){
             // preset specimen arm down
@@ -228,5 +252,6 @@ public class TwoPersonDrive extends LinearOpMode {
         }
 
         roboController.specimenArmLastState = armpad.dpad_up;
+        */
     }
 }
