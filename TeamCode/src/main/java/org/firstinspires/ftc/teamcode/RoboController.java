@@ -5,6 +5,8 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.hardware.IMU;
+import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
 import java.lang.Math;
 
 
@@ -28,6 +30,7 @@ public class RoboController {
     public Servo inClaw; //servo closest to white inclaw
     public Servo specimenArm;
     public DcMotor hangingArm;
+    public IMU imu;
 
     // button logic variables
     public boolean inClawLastState;
@@ -66,6 +69,9 @@ public class RoboController {
         // hanging arm
         hangingArm = hardwareMap.get(DcMotor.class,"hangingArm");
 
+        // imu
+        imu = hardwareMap.get(IMU.class, "imu");
+
         // logic booleans
         inClawLastState = false;
         outClawLastState = false;
@@ -89,6 +95,16 @@ public class RoboController {
         FRW.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         BLW.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         BRW.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+        // Initialize IMU directly
+        imu.initialize(
+                new IMU.Parameters(
+                        new RevHubOrientationOnRobot(
+                                RevHubOrientationOnRobot.LogoFacingDirection.BACKWARD,
+                                RevHubOrientationOnRobot.UsbFacingDirection.RIGHT
+                        )
+                )
+        );
     }
 
     // wheel/distance conversions
