@@ -42,7 +42,7 @@ public class RR_AutoMultipleSpecimen extends LinearOpMode {
                 .setTangent(0)
                 // 1
                 // move forward
-                .lineToX(64)
+                .lineToX(66)
                 // move right in front of specimen
                 .setTangent(Math.PI / 2)
                 .strafeTo(new Vector2d(66, -44))
@@ -51,7 +51,7 @@ public class RR_AutoMultipleSpecimen extends LinearOpMode {
                 .lineToX(3)
                 // 2
                 // move forward
-                .lineToX(64)
+                .lineToX(66)
                 // move right in front of specimen
                 .setTangent(Math.PI / 2)
                 .strafeTo(new Vector2d(66, -58))
@@ -60,7 +60,7 @@ public class RR_AutoMultipleSpecimen extends LinearOpMode {
                 .lineToX(3)
                 // 3
                 // move forward
-                .lineToX(64)
+                .lineToX(66)
                 // move right in front of specimen
                 .setTangent(Math.PI / 2)
                 .strafeTo(new Vector2d(66, -72))
