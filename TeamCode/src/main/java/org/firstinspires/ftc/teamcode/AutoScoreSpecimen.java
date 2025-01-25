@@ -3,7 +3,7 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
-@Autonomous(name = "Auto Score Specimen", group = "Concept")
+@Autonomous(name = "Auto Score Specimen (LEFT)", group = "Concept")
 
 // will score the preset block and park in observation zone
 public class AutoScoreSpecimen extends LinearOpMode {

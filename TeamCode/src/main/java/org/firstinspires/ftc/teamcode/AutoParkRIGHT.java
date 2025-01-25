@@ -3,7 +3,7 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
-@Autonomous(name = "RIGHT - Auto Park", group = "Concept")
+@Autonomous(name = "RIGHT - Auto Park (MIDDLE)", group = "Concept")
 
 // will score the preset block and park in observation zone
 public class AutoParkRIGHT extends LinearOpMode {

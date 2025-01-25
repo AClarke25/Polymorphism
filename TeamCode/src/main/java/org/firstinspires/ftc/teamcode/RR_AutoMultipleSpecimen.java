@@ -13,7 +13,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.Servo;
 
-@Autonomous(name = "RR Autonomous Multiple Specimen")
+@Autonomous(name = "RR Autonomous Multiple Specimen (MIDDLE)")
 public class RR_AutoMultipleSpecimen extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
@@ -36,35 +36,41 @@ public class RR_AutoMultipleSpecimen extends LinearOpMode {
                 .turn(Math.toRadians(-90))
                 .setTangent(Math.PI / 2)
                 // move forward
-                .lineToY(-25)
+                .lineToY(-26)
                 // turn left
                 .turn(Math.toRadians(90))
                 .setTangent(0)
                 // 1
                 // move forward
-                .lineToX(54)
+                .lineToX(64)
                 // move right in front of specimen
-                .strafeTo(new Vector2d(54, -30))
+                .setTangent(Math.PI / 2)
+                .strafeTo(new Vector2d(66, -44))
                 // push specimen back
+                .setTangent(0)
                 .lineToX(3)
                 // 2
                 // move forward
-                .lineToX(54)
+                .lineToX(64)
                 // move right in front of specimen
-                .strafeTo(new Vector2d(54, -36))
+                .setTangent(Math.PI / 2)
+                .strafeTo(new Vector2d(66, -58))
                 // push specimen back
+                .setTangent(0)
                 .lineToX(3)
                 // 3
                 // move forward
-                .lineToX(54)
+                .lineToX(64)
                 // move right in front of specimen
-                .strafeTo(new Vector2d(54, -42))
+                .setTangent(Math.PI / 2)
+                .strafeTo(new Vector2d(66, -72))
                 // push specimen back
+                .setTangent(0)
                 .lineToX(3)
                 // more forward outside of zone
                 .lineToX(20)
                 // wait until clip is put on
-                .waitSeconds(4)
+                .waitSeconds(3)
                 // move back and park
                 .lineToX(1);
 
