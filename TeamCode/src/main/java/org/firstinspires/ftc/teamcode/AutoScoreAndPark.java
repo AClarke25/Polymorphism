@@ -82,19 +82,6 @@ public class AutoScoreAndPark extends LinearOpMode {
 
             // move left and park in observation zone
             roboController.moveOnXAxis(-25,0.85);
-
-            /*
-            // test
-            roboController.moveOnYAxis(24, 1);
-
-            sleep(2000);
-
-            roboController.moveOnYAxis(24, 1);
-
-            sleep(2000);
-
-            roboController.moveOnXAxis(48, 1);
-            */
         }
     }
 }

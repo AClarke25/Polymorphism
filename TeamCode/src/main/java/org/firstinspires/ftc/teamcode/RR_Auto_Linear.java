@@ -11,7 +11,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.Servo;
 
-@Autonomous(name = "RR Linear Autonomous")
+//@Autonomous(name = "RR Linear Autonomous")
 public class RR_Auto_Linear extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
