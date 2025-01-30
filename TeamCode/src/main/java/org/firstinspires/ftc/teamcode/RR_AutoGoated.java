@@ -17,23 +17,42 @@ import com.qualcomm.robotcore.hardware.Servo;
 public class RR_AutoGoated extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
-        MecanumDrive drive = new MecanumDrive(hardwareMap, new Pose2d(0, 0, 0));
+        // initial position of robot
+        Pose2d initialPose = new Pose2d(12,-72,Math.PI / 2);
+        // robot to be used
+        MecanumDrive drive = new MecanumDrive(hardwareMap, initialPose);
+        // creation of specimen arm object to use
         Servo specimenServo = hardwareMap.servo.get("specimenArm");
 
 
-        TrajectoryActionBuilder action1 = drive.actionBuilder(new Pose2d(0,0,0))
+        // 1st action - scoring one specimen
+        TrajectoryActionBuilder action1 = drive.actionBuilder(initialPose)
                 // specimen scoring servo position
                 .stopAndAdd(new ServoAction(specimenServo, 0.25))
-                .setTangent(0)
+                //.setTangent(0)
 
                 // 1
                 // spline to submersible
-                .splineToConstantHeading(new Vector2d(50, 22), Math.toRadians(0))
+                .splineToConstantHeading(new Vector2d(0, -24), Math.toRadians(0))
                 // put arm down
                 .stopAndAdd(new ServoAction(specimenServo, 0.738))
                 // move back
-                .lineToX(24)
+                .lineToY(-48);
 
+        // 2nd action - unique spline to samples on floor
+        TrajectoryActionBuilder action2 = drive.actionBuilder(new Pose2d(0.00, -48.00, Math.PI / 2))
+                .splineTo(new Vector2d(26.86, -39.45), Math.toRadians(0))
+                .splineToConstantHeading(new Vector2d(47.83, -8.69), Math.toRadians(0));
+
+        // 3rd action - moving one sample that's on the back into the zone (will add more later)
+        TrajectoryActionBuilder action3 = drive.actionBuilder(new Pose2d(47.83, -8.69, Math.PI / 2))
+                // flip specimen arm forward
+                .stopAndAdd(new ServoAction(specimenServo, 0.25))
+
+                // move block back
+                .lineToY(-65);
+
+                /*
                 // 2
                 // strafe to the right
                 .setTangent(Math.PI / 2)
@@ -89,12 +108,17 @@ public class RR_AutoGoated extends LinearOpMode {
                 .stopAndAdd(new ServoAction(specimenServo, 0.738))
                 // move back
                 .lineToX(24);
+                 */
+
 
         waitForStart();
 
+        // connecting all three actions together so the robot runs them back to back
         Actions.runBlocking(
                 new SequentialAction(
-                        action2.build()
+                        action1.build(),
+                        action2.build(),
+                        action3.build()
                 )
         );
     }
@@ -104,9 +128,9 @@ public class RR_AutoGoated extends LinearOpMode {
         Servo servo;
         double position;
 
-        public ServoAction(Servo initialServo, double initialPosition) {
-            this.servo = initialServo;
-            this.position = initialPosition;
+        public ServoAction(Servo usedServo, double finalPosition) {
+            this.servo = usedServo;
+            this.position = finalPosition;
         }
 
         @Override

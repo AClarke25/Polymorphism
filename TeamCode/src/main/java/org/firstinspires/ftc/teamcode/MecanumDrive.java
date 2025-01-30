@@ -76,7 +76,7 @@ public final class MecanumDrive {
         public double maxWheelVel = 100;
         public double minProfileAccel = -30;
         // how long robot takes in between each move (higher = shorter waiting time)
-        public double maxProfileAccel = 90;
+        public double maxProfileAccel = 120;
 
         // turn profile parameters (in radians)
         // MAYBE MAKES IT MOVE FASTER???
