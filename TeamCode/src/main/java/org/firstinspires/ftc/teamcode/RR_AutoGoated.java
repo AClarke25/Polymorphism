@@ -41,7 +41,7 @@ public class RR_AutoGoated extends LinearOpMode {
 
         // 2nd action - unique spline to samples on floor
         TrajectoryActionBuilder action2 = drive.actionBuilder(new Pose2d(0.00, -48.00, Math.PI / 2))
-                .splineTo(new Vector2d(26.86, -39.45), Math.toRadians(0))
+                .splineToConstantHeading(new Vector2d(26.86, -39.45), Math.toRadians(0))
                 .splineToConstantHeading(new Vector2d(47.83, -8.69), Math.toRadians(0));
 
         // 3rd action - moving one sample that's on the back into the zone (will add more later)
