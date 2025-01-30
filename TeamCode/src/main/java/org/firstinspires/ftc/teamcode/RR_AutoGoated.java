@@ -13,7 +13,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.Servo;
 
-@Autonomous(name = "3 RR Autonomous Goated (MIDDLE)")
+@Autonomous(name = "RR Autonomous Goated (MIDDLE)")
 public class RR_AutoGoated extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
