@@ -33,7 +33,7 @@ public class RR_AutoGoated extends LinearOpMode {
 
                 // 1
                 // spline to submersible
-                .splineToConstantHeading(new Vector2d(0, -24), Math.toRadians(0))
+                .splineToConstantHeading(new Vector2d(0, -26), 0)
                 // put arm down
                 .stopAndAdd(new ServoAction(specimenServo, 0.738))
                 // move back
@@ -41,11 +41,13 @@ public class RR_AutoGoated extends LinearOpMode {
 
         // 2nd action - unique spline to samples on floor
         TrajectoryActionBuilder action2 = drive.actionBuilder(new Pose2d(0.00, -48.00, Math.PI / 2))
-                .splineToConstantHeading(new Vector2d(26.86, -39.45), Math.toRadians(0))
-                .splineToConstantHeading(new Vector2d(47.83, -8.69), Math.toRadians(0));
+                .splineToConstantHeading(new Vector2d(36.20, -29.93), Math.PI / 2)
+                .splineToConstantHeading(new Vector2d(37.96, -15.65), Math.PI / 2)
+                .splineToConstantHeading(new Vector2d(47.35, -8.41), Math.PI / 2);
+
 
         // 3rd action - moving one sample that's on the back into the zone (will add more later)
-        TrajectoryActionBuilder action3 = drive.actionBuilder(new Pose2d(47.83, -8.69, Math.PI / 2))
+        TrajectoryActionBuilder action3 = drive.actionBuilder(new Pose2d(47.35, -8.41, Math.PI / 2))
                 // flip specimen arm forward
                 .stopAndAdd(new ServoAction(specimenServo, 0.25))
 
