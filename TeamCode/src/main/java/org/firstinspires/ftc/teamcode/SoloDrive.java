@@ -127,7 +127,7 @@ public class SoloDrive extends LinearOpMode {
             if (!roboController.inArmLastStateLower) {
                 if (roboController.inArmState == 1) {
                     // pickup position (on block level)
-                    roboController.shoulder.setPosition(0.73);
+                    roboController.shoulder.setPosition(0.75);
                 }
 
                 roboController.inArmLastStateLower = true;
