@@ -73,14 +73,14 @@ public final class MecanumDrive {
 
         // path profile parameters (in inches)
         // double
-        public double maxWheelVel = 100;
+        public double maxWheelVel = 300;
         public double minProfileAccel = -30;
         // how long robot takes in between each move (higher = shorter waiting time)
-        public double maxProfileAccel = 120;
+        public double maxProfileAccel = 300;
 
         // turn profile parameters (in radians)
         // MAYBE MAKES IT MOVE FASTER???
-        public double maxAngVel = (Math.PI * 3); // shared with path
+        public double maxAngVel = (Math.PI * 10); // shared with path
         public double maxAngAccel = Math.PI;
 
         // path controller gains

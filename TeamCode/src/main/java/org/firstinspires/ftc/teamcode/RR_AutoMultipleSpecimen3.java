@@ -37,10 +37,73 @@ public class RR_AutoMultipleSpecimen3 extends LinearOpMode {
                 // 2
                 // strafe to the right
                 .setTangent(Math.PI / 2)
+                .lineToY(-37)
+
+                // forward
+                .setTangent(0)
+                .lineToX(75)
+
+                // arm up
+                .stopAndAdd(new ServoAction(specimenServo, 0.25))
+
+                // 2.1
+                // more right
+                .setTangent(Math.PI / 2)
+                .lineToY(-55)
+
+                // move back
+                .setTangent(0)
+                .lineToX(7)
+
+                // 2.2
+                // forward
+                .setTangent(0)
+                .lineToX(75)
+
+                // more right
+                .setTangent(Math.PI / 2)
+                .lineToY(-72)
+
+                // move back
+                .setTangent(0)
+                .lineToX(7)
+
+                // 2.3
+                // forward
+                .setTangent(0)
+                .lineToX(75)
+
+                // more right
+                .setTangent(Math.PI / 2)
+                .lineToY(-85)
+
+                // move back
+                .setTangent(0)
+                .lineToX(7)
+
+                // move forward
+                .lineToX(10)
+
+                // arm back
+                .stopAndAdd(new ServoAction(specimenServo, 0.738))
+
+                // move left
+                .setTangent(Math.PI / 2)
                 .lineToY(-29)
 
+                // move back
+                .setTangent(0)
+                .lineToX(4)
+
+
+
+
+
+
+                /*
                 // wait a few seconds
-                .waitSeconds(2)
+                //.waitSeconds(2)
+
 
                 // move back
                 .setTangent(0)
@@ -48,6 +111,8 @@ public class RR_AutoMultipleSpecimen3 extends LinearOpMode {
 
                 // wait a few seconds
                 .waitSeconds(2)
+
+                 */
 
                 // specimen scoring servo position
                 .stopAndAdd(new ServoAction(specimenServo, 0.25))
@@ -68,14 +133,14 @@ public class RR_AutoMultipleSpecimen3 extends LinearOpMode {
                 .lineToY(-29)
 
                 // wait a few seconds
-                .waitSeconds(2)
+                //.waitSeconds(2)
 
                 // move back
                 .setTangent(0)
-                .lineToX(5)
+                .lineToX(4)
 
                 // wait a few seconds
-                .waitSeconds(2)
+                //.waitSeconds(2)
 
                 // specimen scoring servo position
                 .stopAndAdd(new ServoAction(specimenServo, 0.25))
@@ -88,7 +153,14 @@ public class RR_AutoMultipleSpecimen3 extends LinearOpMode {
                 // put arm down
                 .stopAndAdd(new ServoAction(specimenServo, 0.738))
                 // move back
-                .lineToX(24);
+                .lineToX(24)
+
+                // specimen scoring servo position
+                .stopAndAdd(new ServoAction(specimenServo, 0.25))
+
+                // spline and park
+                .splineToConstantHeading(new Vector2d(7, -85), Math.toRadians(0));
+
 
         waitForStart();
 
