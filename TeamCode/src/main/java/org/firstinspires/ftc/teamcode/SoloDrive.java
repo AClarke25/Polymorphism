@@ -24,19 +24,6 @@ public class SoloDrive extends LinearOpMode {
         while (opModeIsActive()) {
             moveRobot(gamepad1);
 
-            telemetry.addData("FLW Motor Power", roboController.FLW.getPower());
-            telemetry.addData("FRW Motor Power", roboController.FRW.getPower());
-            telemetry.addData("BLW Motor Power", roboController.BLW.getPower());
-            telemetry.addData("BRW Motor Power", roboController.BRW.getPower());
-
-            telemetry.addData("Outtake Arm Motor Power", roboController.VLS.getPower());
-            telemetry.addData("Intake Arm Motor Power", roboController.HLS.getPower());
-            telemetry.addData("Outtake Claw Servo Position", roboController.outClaw.getPosition());
-            telemetry.addData("Intake Claw Servo Position", roboController.inClaw.getPosition());
-            telemetry.addData("Shoulder Servo Position", roboController.shoulder.getPosition());
-            telemetry.addData("Wrist Servo Position", roboController.wrist.getPosition());
-            telemetry.addData("Specimen Servo Position", roboController.specimenArm.getPosition());
-
             telemetry.addData("Status", "Running");
             telemetry.update();
         }

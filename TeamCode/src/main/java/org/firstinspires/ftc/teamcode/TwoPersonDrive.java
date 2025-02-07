@@ -25,24 +25,6 @@ public class TwoPersonDrive extends LinearOpMode {
             moveWheels(gamepad1);
             moveArm(gamepad2);
 
-            telemetry.addData("FLW Motor Power", roboController.FLW.getPower());
-            telemetry.addData("FRW Motor Power", roboController.FRW.getPower());
-            telemetry.addData("BLW Motor Power", roboController.BLW.getPower());
-            telemetry.addData("BRW Motor Power", roboController.BRW.getPower());
-
-            telemetry.addData("FLW Motor Power", roboController.FLW.getPower());
-            telemetry.addData("FRW Motor Power", roboController.FRW.getPower());
-            telemetry.addData("BLW Motor Power", roboController.BLW.getPower());
-            telemetry.addData("BRW Motor Power", roboController.BRW.getPower());
-
-            telemetry.addData("Outtake Arm Motor Power", roboController.VLS.getPower());
-            telemetry.addData("Intake Arm Motor Power", roboController.HLS.getPower());
-            telemetry.addData("Outtake Claw Servo Position", roboController.outClaw.getPosition());
-            telemetry.addData("Intake Claw Servo Position", roboController.inClaw.getPosition());
-            telemetry.addData("Shoulder Servo Position", roboController.shoulder.getPosition());
-            telemetry.addData("Wrist Servo Position", roboController.wrist.getPosition());
-            telemetry.addData("Specimen Servo Position", roboController.specimenArm.getPosition());
-
             telemetry.addData("Status", "Running");
             telemetry.update();
         }
@@ -58,7 +40,16 @@ public class TwoPersonDrive extends LinearOpMode {
         drivePower = -movepad.left_stick_y;
 
         // moves the robot's (wheel) motors left and right using the game pad 1 left joystick
-        strafePower = movepad.left_stick_x;
+        // strafePower = movepad.left_stick_x;
+
+        if(movepad.left_trigger > 0){
+            strafePower = -movepad.left_trigger;
+        } else if(movepad.right_trigger > 0){
+            strafePower = movepad.right_trigger;
+        } else {
+            strafePower = 0;
+        }
+
 
         // turns the robot's (wheel) motors left and right using the game pad 1 right joystick
         turnPower = movepad.right_stick_x;
@@ -78,11 +69,15 @@ public class TwoPersonDrive extends LinearOpMode {
         // dpad up for toggling specimen arm
         if(movepad.dpad_up && !roboController.specimenArmLastState){
             // preset specimen arm down
+            /*
             if(roboController.justStarted){
-                roboController.specimenArm.setPosition(0);
+                //roboController.specimenArm.setPosition(0);
+                roboController.specimenArm.setPosition(0.738);
 
                 roboController.justStarted = false;
             } else {
+
+             */
 
                 if (roboController.specimenArm.getPosition() < 0.5) {
                     // set specimenArm position 1
@@ -91,7 +86,7 @@ public class TwoPersonDrive extends LinearOpMode {
                     // set specimenArm position 2
                     roboController.specimenArm.setPosition(0.25);
                 }
-            }
+            //}
         }
 
         roboController.specimenArmLastState = movepad.dpad_up;
@@ -112,12 +107,14 @@ public class TwoPersonDrive extends LinearOpMode {
     public void moveArm(Gamepad armpad){
         // ** arm movement **
 
+        /*
         // preset specimen arm down
         if(roboController.justStarted){
             roboController.specimenArm.setPosition(0);
 
             roboController.justStarted = false;
         }
+         */
 
         // powers the robot's (arm) motors using the game pad 2 left joystick
         // (this will make the arm's motor power vary depending on how much you're using the joystick.
