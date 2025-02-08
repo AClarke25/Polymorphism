@@ -1,12 +1,18 @@
 package org.firstinspires.ftc.teamcode;
 
+import com.acmerobotics.roadrunner.Pose2d;
+import com.acmerobotics.roadrunner.SequentialAction;
+import com.acmerobotics.roadrunner.TrajectoryActionBuilder;
+import com.acmerobotics.roadrunner.ftc.Actions;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.Gamepad;
+import com.qualcomm.robotcore.hardware.Servo;
 
 @TeleOp
 public class TwoPersonDrive extends LinearOpMode {
     private RoboController roboController;
+    private boolean movingBack = false;
 
     @Override
     public void runOpMode() {
@@ -14,6 +20,8 @@ public class TwoPersonDrive extends LinearOpMode {
 
         telemetry.addData("Status", "Initialized");
         telemetry.update();
+
+        MecanumDrive drive = new MecanumDrive(hardwareMap, new Pose2d(20, 24, 0));
 
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
@@ -54,12 +62,26 @@ public class TwoPersonDrive extends LinearOpMode {
         // turns the robot's (wheel) motors left and right using the game pad 1 right joystick
         turnPower = movepad.right_stick_x;
 
+        if(movepad.dpad_down){
+            drivePower = -1;
+            strafePower = 0;
+            turnPower = 0;
+        }
+
         // drive, turn, and strafe logic
         // https://youtu.be/jRVUHapKx4o?si=1jVJ-ts7d2rkHCdq
-        roboController.FLW.setPower(drivePower + turnPower + strafePower);
-        roboController.FRW.setPower(drivePower - turnPower - strafePower);
-        roboController.BLW.setPower(drivePower + turnPower - strafePower);
-        roboController.BRW.setPower(drivePower - turnPower + strafePower);
+
+        if(movepad.dpad_down){
+            roboController.FLW.setPower(drivePower * 0.8);
+            roboController.FRW.setPower(drivePower * 0.75);
+            roboController.BLW.setPower(drivePower * 0.8);
+            roboController.BRW.setPower(drivePower * 0.75);
+        } else {
+            roboController.FLW.setPower(drivePower + turnPower + strafePower);
+            roboController.FRW.setPower(drivePower - turnPower - strafePower);
+            roboController.BLW.setPower(drivePower + turnPower - strafePower);
+            roboController.BRW.setPower(drivePower - turnPower + strafePower);
+        }
 
 
         telemetry.addData("Drive Power", drivePower);

@@ -55,7 +55,7 @@ public class RR_BestAuto extends LinearOpMode {
                 .stopAndAdd(new ServoAction(specimenServo, 0.25))
 
                 // spline to submersible
-                .splineToConstantHeading(new Vector2d(40, 30), Math.toRadians(0))
+                .splineToConstantHeading(new Vector2d(30, 30), Math.toRadians(0))
 
                 // move a bit forward
                 .lineToX(52)
@@ -68,7 +68,7 @@ public class RR_BestAuto extends LinearOpMode {
 
                 // move a bit to the right
                 .setTangent(Math.PI / 2)
-                .lineToY(-18)
+                .lineToY(-19)
 
                 // 2.1
                 // diagonal line to samples
@@ -89,7 +89,7 @@ public class RR_BestAuto extends LinearOpMode {
 
                 // move back and attach specimen
                 .setTangent(0)
-                .lineToX(3)
+                .lineToX(5.5)
 
                 // wait for a bit
                 .waitSeconds(0.75)
@@ -98,7 +98,7 @@ public class RR_BestAuto extends LinearOpMode {
                 .stopAndAdd(new ServoAction(specimenServo, 0.25))
 
                 // spline to submersible
-                .splineToConstantHeading(new Vector2d(40, 24), Math.toRadians(0))
+                .splineToConstantHeading(new Vector2d(25, 24), Math.toRadians(0))
 
                 // move a bit forward
                 .lineToX(55)
