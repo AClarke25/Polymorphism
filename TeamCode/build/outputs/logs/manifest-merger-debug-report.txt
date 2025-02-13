@@ -7,6 +7,7 @@ INJECTED from /Users/annakaeciaclarke/Desktop/Polymorphism/TeamCode/src/main/And
 MERGED from [:FtcRobotController] /Users/annakaeciaclarke/Desktop/Polymorphism/FtcRobotController/build/intermediates/merged_manifest/debug/processDebugManifest/AndroidManifest.xml:2:1-78:12
 MERGED from [org.firstinspires.ftc:OnBotJava:10.1.1] /Users/annakaeciaclarke/.gradle/caches/8.9/transforms/2942815857bcde462228621fc8c275e5/transformed/OnBotJava-10.1.1/AndroidManifest.xml:34:1-41:12
 MERGED from [org.firstinspires.ftc:Blocks:10.1.1] /Users/annakaeciaclarke/.gradle/caches/8.9/transforms/5fdf550c57acd8b76882038719059e36/transformed/Blocks-10.1.1/AndroidManifest.xml:2:1-24:12
+MERGED from [com.pedropathing:pedro:1.0.7] /Users/annakaeciaclarke/.gradle/caches/8.9/transforms/a27e2080db185b4a9767cf94cf953b79/transformed/pedro-1.0.7/AndroidManifest.xml:2:1-7:12
 MERGED from [com.acmerobotics.roadrunner:ftc:0.1.15] /Users/annakaeciaclarke/.gradle/caches/8.9/transforms/30766eee2356e3b1c22689b49e6df67c/transformed/ftc-0.1.15/AndroidManifest.xml:3:1-12:12
 MERGED from [com.acmerobotics.dashboard:dashboard:0.4.16] /Users/annakaeciaclarke/.gradle/caches/8.9/transforms/2a8b801ac56271921d29d61cfac426fb/transformed/dashboard-0.4.16/AndroidManifest.xml:2:1-9:12
 MERGED from [org.firstinspires.ftc:FtcCommon:10.1.1] /Users/annakaeciaclarke/.gradle/caches/8.9/transforms/fc6c3aa5ef79cd253593b19fa5a60f6c/transformed/FtcCommon-10.1.1/AndroidManifest.xml:3:1-178:12
@@ -99,6 +100,8 @@ MERGED from [org.firstinspires.ftc:OnBotJava:10.1.1] /Users/annakaeciaclarke/.gr
 MERGED from [org.firstinspires.ftc:OnBotJava:10.1.1] /Users/annakaeciaclarke/.gradle/caches/8.9/transforms/2942815857bcde462228621fc8c275e5/transformed/OnBotJava-10.1.1/AndroidManifest.xml:39:5-44
 MERGED from [org.firstinspires.ftc:Blocks:10.1.1] /Users/annakaeciaclarke/.gradle/caches/8.9/transforms/5fdf550c57acd8b76882038719059e36/transformed/Blocks-10.1.1/AndroidManifest.xml:7:5-44
 MERGED from [org.firstinspires.ftc:Blocks:10.1.1] /Users/annakaeciaclarke/.gradle/caches/8.9/transforms/5fdf550c57acd8b76882038719059e36/transformed/Blocks-10.1.1/AndroidManifest.xml:7:5-44
+MERGED from [com.pedropathing:pedro:1.0.7] /Users/annakaeciaclarke/.gradle/caches/8.9/transforms/a27e2080db185b4a9767cf94cf953b79/transformed/pedro-1.0.7/AndroidManifest.xml:5:5-44
+MERGED from [com.pedropathing:pedro:1.0.7] /Users/annakaeciaclarke/.gradle/caches/8.9/transforms/a27e2080db185b4a9767cf94cf953b79/transformed/pedro-1.0.7/AndroidManifest.xml:5:5-44
 MERGED from [com.acmerobotics.roadrunner:ftc:0.1.15] /Users/annakaeciaclarke/.gradle/caches/8.9/transforms/30766eee2356e3b1c22689b49e6df67c/transformed/ftc-0.1.15/AndroidManifest.xml:6:5-8:41
 MERGED from [com.acmerobotics.roadrunner:ftc:0.1.15] /Users/annakaeciaclarke/.gradle/caches/8.9/transforms/30766eee2356e3b1c22689b49e6df67c/transformed/ftc-0.1.15/AndroidManifest.xml:6:5-8:41
 MERGED from [com.acmerobotics.dashboard:dashboard:0.4.16] /Users/annakaeciaclarke/.gradle/caches/8.9/transforms/2a8b801ac56271921d29d61cfac426fb/transformed/dashboard-0.4.16/AndroidManifest.xml:5:5-7:41

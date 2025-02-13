@@ -27,7 +27,8 @@ import pedroPathing.constants.FConstants;
 import pedroPathing.constants.LConstants;
 
 @TeleOp(name = "Motor Directions", group = "Teleop Test")
-public class MotorDirections extends OpMode {
+public class
+MotorDirections extends OpMode {
     private Telemetry telemetryA;
 
     private DcMotorEx leftFront;
