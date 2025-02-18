@@ -22,11 +22,11 @@ public class FConstants {
 
         FollowerConstants.mass = 11.044974;
 
-        FollowerConstants.xMovement = 57.8741;
-        FollowerConstants.yMovement = 52.295;
+        FollowerConstants.xMovement = 266.8097;
+        FollowerConstants.yMovement = 342.4551;
 
-        FollowerConstants.forwardZeroPowerAcceleration = -41.278;
-        FollowerConstants.lateralZeroPowerAcceleration = -59.7819;
+        FollowerConstants.forwardZeroPowerAcceleration = -433.1153;
+        FollowerConstants.lateralZeroPowerAcceleration = -2667.0451;
 
         FollowerConstants.translationalPIDFCoefficients.setCoefficients(0.1,0,0.01,0);
         FollowerConstants.useSecondaryTranslationalPID = false;

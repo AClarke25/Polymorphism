@@ -21,7 +21,23 @@ public class RoboController {
     public DcMotor BLW;
     public DcMotor BRW;
 
-    // arm parts=
+    public IMU imu;
+
+    // ** new variables **
+    public Servo rightIntakePusher;
+    public Servo leftIntakePusher;
+    public Servo intakeFlip;
+    public Servo intakeRotate;
+    public Servo intakeTwist;
+    public Servo intakeGripper;
+    public DcMotor leftVerticalSlide;
+    public DcMotor rightVerticalSlide;
+
+    // ****
+
+
+    // ** old variables **
+    // arm parts
     public DcMotor VLS; // linear slide for outtake (Vertical Linear Slide)
     public DcMotor HLS; // linear slide for intake (Horizontal Linear Slide)
     public Servo outClaw; // bucket
@@ -30,7 +46,6 @@ public class RoboController {
     public Servo inClaw; //servo closest to white inclaw
     public Servo specimenArm;
     public DcMotor hangingArm;
-    public IMU imu;
 
     // button logic variables
     public boolean inClawLastState;
@@ -41,6 +56,8 @@ public class RoboController {
     public boolean wristLastState;
     public boolean inArmLastStateLower;
     public boolean justStarted;
+
+    // ****
 
     public RoboController(LinearOpMode opMode){
 
@@ -53,6 +70,20 @@ public class RoboController {
         BLW = hardwareMap.get(DcMotor.class, "BLW");
         BRW = hardwareMap.get(DcMotor.class, "BRW");
 
+        // imu
+        imu = hardwareMap.get(IMU.class, "imu");
+
+        rightIntakePusher = hardwareMap.get(Servo.class, "RIP");
+        leftIntakePusher = hardwareMap.get(Servo.class, "LIP");
+        intakeFlip = hardwareMap.get(Servo.class, "IFS");
+        intakeRotate = hardwareMap.get(Servo.class, "IRS");
+        intakeTwist = hardwareMap.get(Servo.class, "ITS");
+        intakeGripper = hardwareMap.get(Servo.class, "IGS");
+        leftVerticalSlide = hardwareMap.get(DcMotor.class, "LVLS");
+        rightVerticalSlide = hardwareMap.get(DcMotor.class, "RVLS");
+
+
+        // ** old variables **
         // intake arm config
         HLS = hardwareMap.get(DcMotor.class,"HLS");
         shoulder = hardwareMap.get(Servo.class,"shoulder");
@@ -69,9 +100,6 @@ public class RoboController {
         // hanging arm
         hangingArm = hardwareMap.get(DcMotor.class,"hangingArm");
 
-        // imu
-        imu = hardwareMap.get(IMU.class, "imu");
-
         // logic booleans
         inClawLastState = false;
         outClawLastState = false;
@@ -86,6 +114,8 @@ public class RoboController {
 
         // presetVariable
         justStarted = true;
+
+        // ****
 
         // presetting
         FRW.setDirection(DcMotorSimple.Direction.REVERSE);

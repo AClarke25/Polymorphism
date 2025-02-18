@@ -1,18 +1,12 @@
 package org.firstinspires.ftc.teamcode;
 
-import com.acmerobotics.roadrunner.Pose2d;
-import com.acmerobotics.roadrunner.SequentialAction;
-import com.acmerobotics.roadrunner.TrajectoryActionBuilder;
-import com.acmerobotics.roadrunner.ftc.Actions;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.Gamepad;
-import com.qualcomm.robotcore.hardware.Servo;
 
 @TeleOp
 public class TwoPersonDrive extends LinearOpMode {
     private RoboController roboController;
-    private boolean movingBack = false;
 
     @Override
     public void runOpMode() {
@@ -20,8 +14,6 @@ public class TwoPersonDrive extends LinearOpMode {
 
         telemetry.addData("Status", "Initialized");
         telemetry.update();
-
-        MecanumDrive drive = new MecanumDrive(hardwareMap, new Pose2d(20, 24, 0));
 
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
@@ -50,6 +42,7 @@ public class TwoPersonDrive extends LinearOpMode {
         // moves the robot's (wheel) motors left and right using the game pad 1 left joystick
         // strafePower = movepad.left_stick_x;
 
+        // new strafing method that uses the backn triggers instead
         if(movepad.left_trigger > 0){
             strafePower = -movepad.left_trigger;
         } else if(movepad.right_trigger > 0){
@@ -58,31 +51,15 @@ public class TwoPersonDrive extends LinearOpMode {
             strafePower = 0;
         }
 
-
         // turns the robot's (wheel) motors left and right using the game pad 1 right joystick
         turnPower = movepad.right_stick_x;
 
-        if(movepad.dpad_down){
-            drivePower = -1;
-            strafePower = 0;
-            turnPower = 0;
-        }
-
         // drive, turn, and strafe logic
         // https://youtu.be/jRVUHapKx4o?si=1jVJ-ts7d2rkHCdq
-
-        if(movepad.dpad_down){
-            roboController.FLW.setPower(drivePower * 0.8);
-            roboController.FRW.setPower(drivePower * 0.75);
-            roboController.BLW.setPower(drivePower * 0.8);
-            roboController.BRW.setPower(drivePower * 0.75);
-        } else {
-            roboController.FLW.setPower(drivePower + turnPower + strafePower);
-            roboController.FRW.setPower(drivePower - turnPower - strafePower);
-            roboController.BLW.setPower(drivePower + turnPower - strafePower);
-            roboController.BRW.setPower(drivePower - turnPower + strafePower);
-        }
-
+        roboController.FLW.setPower(drivePower + turnPower + strafePower);
+        roboController.FRW.setPower(drivePower - turnPower - strafePower);
+        roboController.BLW.setPower(drivePower + turnPower - strafePower);
+        roboController.BRW.setPower(drivePower - turnPower + strafePower);
 
         telemetry.addData("Drive Power", drivePower);
         telemetry.addData("Strafe Power", strafePower);
@@ -90,60 +67,20 @@ public class TwoPersonDrive extends LinearOpMode {
 
         // dpad up for toggling specimen arm
         if(movepad.dpad_up && !roboController.specimenArmLastState){
-            // preset specimen arm down
-            /*
-            if(roboController.justStarted){
-                //roboController.specimenArm.setPosition(0);
+            if (roboController.specimenArm.getPosition() < 0.5) {
+                // set specimenArm position 1
                 roboController.specimenArm.setPosition(0.738);
-
-                roboController.justStarted = false;
             } else {
-
-             */
-
-                if (roboController.specimenArm.getPosition() < 0.5) {
-                    // set specimenArm position 1
-                    roboController.specimenArm.setPosition(0.738);
-                } else {
-                    // set specimenArm position 2
-                    roboController.specimenArm.setPosition(0.25);
-                }
-            //}
+                // set specimenArm position 2
+                roboController.specimenArm.setPosition(0.25);
+            }
         }
 
         roboController.specimenArmLastState = movepad.dpad_up;
-
-        /*
-        // solo driver will use up and down dpad (only in 2-person drive) to control
-        // hanging arm linear slide
-        if(movepad.dpad_up){
-            roboController.hangingArm.setPower(1);
-        } else if(movepad.dpad_down) {
-            roboController.hangingArm.setPower(-1);
-        } else {
-            roboController.hangingArm.setPower(0);
-        }
-         */
     }
 
     public void moveArm(Gamepad armpad){
         // ** arm movement **
-
-        /*
-        // preset specimen arm down
-        if(roboController.justStarted){
-            roboController.specimenArm.setPosition(0);
-
-            roboController.justStarted = false;
-        }
-         */
-
-        // powers the robot's (arm) motors using the game pad 2 left joystick
-        // (this will make the arm's motor power vary depending on how much you're using the joystick.
-        // this can be changed later if we want the motor to have a constant power no matter what
-        // value the joystick is giving)
-        // linear slide(s) for outtake arm
-        // (provides a threshold for deactivating motor power since joystick may not be at exactly 0)
 
         // right = extend
         // left = retract
@@ -249,28 +186,5 @@ public class TwoPersonDrive extends LinearOpMode {
         }
 
         roboController.wristLastState = armpad.square;
-
-        /*
-        // dpad up for toggling specimen arm
-        if(armpad.dpad_up && !roboController.specimenArmLastState){
-            // preset specimen arm down
-            if(roboController.justStarted){
-                roboController.specimenArm.setPosition(0);
-
-                roboController.justStarted = false;
-            } else {
-
-                if (roboController.specimenArm.getPosition() < 0.5) {
-                    // set specimenArm position 1
-                    roboController.specimenArm.setPosition(0.738);
-                } else {
-                    // set specimenArm position 2
-                    roboController.specimenArm.setPosition(0.25);
-                }
-            }
-        }
-
-        roboController.specimenArmLastState = armpad.dpad_up;
-        */
     }
 }
