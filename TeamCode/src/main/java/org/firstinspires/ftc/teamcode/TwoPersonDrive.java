@@ -7,6 +7,7 @@ import com.qualcomm.robotcore.hardware.Gamepad;
 @TeleOp
 public class TwoPersonDrive extends LinearOpMode {
     private RoboController roboController;
+    public static double servoPos = 0.5;
 
     @Override
     public void runOpMode() {
@@ -26,6 +27,8 @@ public class TwoPersonDrive extends LinearOpMode {
             moveArm(gamepad2);
 
             telemetry.addData("Status", "Running");
+            telemetry.addData("RIP", roboController.rightIntakePusher.getPosition());
+            telemetry.addData("LIP", roboController.leftIntakePusher.getPosition());
             telemetry.update();
         }
     }
@@ -64,19 +67,6 @@ public class TwoPersonDrive extends LinearOpMode {
         telemetry.addData("Drive Power", drivePower);
         telemetry.addData("Strafe Power", strafePower);
         telemetry.addData("Turn Power", turnPower);
-
-        // dpad up for toggling specimen arm
-        if(movepad.dpad_up && !roboController.specimenArmLastState){
-            if (roboController.specimenArm.getPosition() < 0.5) {
-                // set specimenArm position 1
-                roboController.specimenArm.setPosition(0.738);
-            } else {
-                // set specimenArm position 2
-                roboController.specimenArm.setPosition(0.25);
-            }
-        }
-
-        roboController.specimenArmLastState = movepad.dpad_up;
     }
 
     public void moveArm(Gamepad armpad){
@@ -85,15 +75,19 @@ public class TwoPersonDrive extends LinearOpMode {
         // right = extend
         // left = retract
 
+        //roboController.rightIntakePusher.setPosition(servoPos);
+        //roboController.leftIntakePusher.setPosition(servoPos);
+
         // triggers control extension of intake arm
         if (armpad.right_trigger > 0.25) {
-            roboController.HLS.setPower(armpad.right_trigger);
+            roboController.rightIntakePusher.setPosition(roboController.rightIntakePusher.getPosition() + 0.01);
+            roboController.leftIntakePusher.setPosition(roboController.leftIntakePusher.getPosition() + 0.01);
         } else if (armpad.left_trigger > 0.25) {
-            roboController.HLS.setPower(-armpad.left_trigger);
-        } else {
-            roboController.HLS.setPower(0);
+            roboController.rightIntakePusher.setPosition(roboController.rightIntakePusher.getPosition() - 0.01);
+            roboController.leftIntakePusher.setPosition(roboController.leftIntakePusher.getPosition() - 0.01);
         }
 
+        /*
         // bumpers control extension of outtake arm
         if (armpad.left_bumper) {
             roboController.VLS.setPower(-1);
@@ -102,89 +96,6 @@ public class TwoPersonDrive extends LinearOpMode {
         } else {
             roboController.VLS.setPower(0);
         }
-
-        // circle controls 3 intake arm positions
-        if (armpad.circle && !roboController.inArmLastState) {
-            if (roboController.inArmState == 2) {
-                roboController.inArmState = 0;
-            } else {
-                roboController.inArmState++;
-            }
-
-            if (roboController.inArmState == 0) {
-                // neutral position
-                roboController.shoulder.setPosition(0.1);
-
-            } else if (roboController.inArmState == 1) {
-                // pickup position (slightly hovered)
-                roboController.shoulder.setPosition(0.64);
-
-            } else if (roboController.inArmState == 2) {
-                // drop off position
-                roboController.shoulder.setPosition(0.26);
-            }
-        }
-
-        // hold dpad down to lower intake arm more
-        if (armpad.dpad_down) {
-            if (!roboController.inArmLastStateLower) {
-                if (roboController.inArmState == 1) {
-                    // pickup position (on block level)
-                    roboController.shoulder.setPosition(0.73);
-                }
-
-                roboController.inArmLastStateLower = true;
-            }
-        } else {
-            if (roboController.inArmState == 1) {
-                // pickup position (slightly hovered)
-                roboController.shoulder.setPosition(0.64);
-            }
-
-            roboController.inArmLastStateLower = false;
-        }
-
-        roboController.inArmLastState = armpad.circle;
-
-        // 1 = open
-        // 0 = closed
-
-        // x/a controls opening and closing claw
-        if (armpad.a && !roboController.inClawLastState) {
-            // initially closed
-            if (roboController.inClaw.getPosition() <= 0.575) {
-                // opening
-                roboController.inClaw.setPosition(0.65);
-
-                // initially opened
-            } else {
-                // closing
-                roboController.inClaw.setPosition(0.4);
-            }
-        }
-
-        roboController.inClawLastState = armpad.a;
-
-        // triangle controls the bucket position
-        if (armpad.triangle && !roboController.outClawLastState) {
-            if (roboController.outClaw.getPosition() < 0.5) {
-                roboController.outClaw.setPosition(1);
-            } else {
-                roboController.outClaw.setPosition(0);
-            }
-        }
-
-        roboController.outClawLastState = armpad.triangle;
-
-        // square controls adjustment of wrist position
-        if (armpad.square && !roboController.wristLastState) {
-            if (roboController.wrist.getPosition() < 0.25) {
-                roboController.wrist.setPosition(0.5);
-            } else {
-                roboController.wrist.setPosition(0);
-            }
-        }
-
-        roboController.wristLastState = armpad.square;
+        */
     }
 }

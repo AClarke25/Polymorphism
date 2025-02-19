@@ -7,12 +7,12 @@ import com.qualcomm.robotcore.hardware.Gamepad;
 
 @TeleOp
 public class OLDTwoDrive extends LinearOpMode {
-    private RoboController roboController;
+    private OLDRobo roboController;
     private boolean movingBack = false;
 
     @Override
     public void runOpMode() {
-        roboController = new RoboController(this);
+        roboController = new OLDRobo(this);
 
         telemetry.addData("Status", "Initialized");
         telemetry.update();

@@ -35,30 +35,6 @@ public class RoboController {
 
     // ****
 
-
-    // ** old variables **
-    // arm parts
-    public DcMotor VLS; // linear slide for outtake (Vertical Linear Slide)
-    public DcMotor HLS; // linear slide for intake (Horizontal Linear Slide)
-    public Servo outClaw; // bucket
-    public Servo shoulder; // lower part closest to linear slide
-    public Servo wrist; // upper part
-    public Servo inClaw; //servo closest to white inclaw
-    public Servo specimenArm;
-    public DcMotor hangingArm;
-
-    // button logic variables
-    public boolean inClawLastState;
-    public boolean outClawLastState;
-    public boolean specimenArmLastState;
-    public int inArmState;
-    public boolean inArmLastState;
-    public boolean wristLastState;
-    public boolean inArmLastStateLower;
-    public boolean justStarted;
-
-    // ****
-
     public RoboController(LinearOpMode opMode){
 
         this.opMode = opMode;
@@ -82,40 +58,6 @@ public class RoboController {
         leftVerticalSlide = hardwareMap.get(DcMotor.class, "LVLS");
         rightVerticalSlide = hardwareMap.get(DcMotor.class, "RVLS");
 
-
-        // ** old variables **
-        // intake arm config
-        HLS = hardwareMap.get(DcMotor.class,"HLS");
-        shoulder = hardwareMap.get(Servo.class,"shoulder");
-        wrist = hardwareMap.get(Servo.class,"wrist");
-        inClaw = hardwareMap.get(Servo.class,"inClaw");
-
-        // outtake arm config
-        VLS = hardwareMap.get(DcMotor.class,"VLS");
-        outClaw = hardwareMap.get(Servo.class,"outClaw");
-
-        // specimen arm
-        specimenArm = hardwareMap.get(Servo.class,"specimenArm");
-
-        // hanging arm
-        hangingArm = hardwareMap.get(DcMotor.class,"hangingArm");
-
-        // logic booleans
-        inClawLastState = false;
-        outClawLastState = false;
-        specimenArmLastState = false;
-
-        wristLastState = false;
-
-        inArmState = -1;
-        inArmLastState = false;
-
-        inArmLastStateLower = false;
-
-        // presetVariable
-        justStarted = true;
-
-        // ****
 
         // presetting
         FRW.setDirection(DcMotorSimple.Direction.REVERSE);
